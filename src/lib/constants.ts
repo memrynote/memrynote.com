@@ -1,4 +1,4 @@
-import { Inbox, BookOpen, FileText, CheckSquare, FolderOpen, Lock, Zap } from 'lucide-react'
+import { Inbox, BookOpen, FileText, CheckSquare, FolderOpen, Lock, Zap, Briefcase, GraduationCap, Laptop, Sparkles } from 'lucide-react'
 
 export const GITHUB_URL = 'https://github.com/memrynote/memry'
 export const DISCORD_URL = 'https://discord.gg/memry'
@@ -6,6 +6,7 @@ export const TWITTER_DEV_URL = 'https://x.com/h4yfans'
 
 export const NAV_LINKS = [
   { label: 'Features', href: '#features' },
+  { label: 'Use Cases', href: '/use-cases' },
   { label: 'Roadmap', href: '#roadmap' },
   { label: 'Pricing', href: '#pricing' }
 ] as const
@@ -260,4 +261,47 @@ export const COMPETITOR_TOOLS = [
   { id: 'bookmarks', name: 'Bookmark manager', price: 3, defaultSelected: false },
   { id: 'writing', name: 'Writing app', price: 5, defaultSelected: false },
   { id: 'habits', name: 'Habit tracker', price: 4, defaultSelected: false }
+] as const
+
+export const USE_CASES = [
+  {
+    id: 'knowledge-workers',
+    icon: Laptop,
+    title: 'Knowledge Workers',
+    painQuote: 'My notes are in one app, tasks in another, and nothing connects.',
+    pain: 'Developers, researchers, and writers juggle multiple tools daily. Context gets lost switching between note-taking apps, task managers, and capture tools. Important connections between ideas stay invisible.',
+    solution: 'Memry unifies capture, thinking, and doing in one local-first workspace. The Inbox catches fleeting thoughts, Notes connect them with wiki-links, and Tasks turn insights into action — all without leaving your flow.',
+    features: ['AI-powered inbox clustering', '[[Wiki links]] & backlinks', 'Full-text search in ms', 'Markdown-native'],
+    workflow: ['Capture idea in Inbox', 'Process into linked Notes', 'Create Tasks from insights', 'Review connections in backlinks']
+  },
+  {
+    id: 'students',
+    icon: GraduationCap,
+    title: 'Students',
+    painQuote: 'Lecture notes everywhere, deadlines slipping through the cracks.',
+    pain: 'Students drown in scattered lecture notes across apps, lose track of assignments, and struggle to connect concepts across courses. Study sessions lack structure.',
+    solution: 'Memry gives students a single place for all coursework. Journal captures daily study reflections, Notes organize by course with cross-references, and Tasks keep every deadline visible with recurring reminders.',
+    features: ['Daily journal for study logs', 'Notes organized by course', 'Recurring task deadlines', 'Calendar & Kanban views'],
+    workflow: ['Log study session in Journal', 'Take lecture Notes with links', 'Track assignments as Tasks', 'Review progress in Calendar']
+  },
+  {
+    id: 'freelancers',
+    icon: Briefcase,
+    title: 'Freelancers',
+    painQuote: 'Client context is spread across five different apps.',
+    pain: 'Freelancers and solopreneurs manage multiple clients with notes in one tool, tasks in another, and project context scattered across email, docs, and chat. Switching costs eat into billable hours.',
+    solution: 'Memry keeps each project self-contained. Notes hold client briefs and meeting notes, Tasks track deliverables on a Kanban board, and Journal provides daily planning to stay on top of every engagement.',
+    features: ['Project-based task views', 'Kanban for deliverables', 'Daily planning in Journal', '8 property types for metadata'],
+    workflow: ['Plan day in Journal', 'Check Tasks per project', 'Update client Notes', 'File new items from Inbox']
+  },
+  {
+    id: 'personal',
+    icon: Sparkles,
+    title: 'Personal Productivity',
+    painQuote: 'Life admin is overwhelming and nothing has a home.',
+    pain: 'Personal to-dos, habit goals, reading lists, and journaling live in separate apps. Without a unified system, things fall through the cracks and reflection becomes an afterthought.',
+    solution: 'Memry becomes your personal command center. Inbox is a zero-friction brain dump, Journal brings daily reflection, Notes store reference material, and Tasks organize everything from groceries to goals.',
+    features: ['Quick capture Inbox', 'Reflective daily Journal', 'Subtasks & recurring habits', 'Private & encrypted'],
+    workflow: ['Brain dump into Inbox', 'Reflect in daily Journal', 'Organize with Notes', 'Track habits as recurring Tasks']
+  }
 ] as const
