@@ -29,17 +29,28 @@ export function Header() {
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
-                className="text-sm font-medium transition-all relative py-1 text-muted hover:text-ink group"
-              >
-                {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-px bg-terracotta transition-all duration-300 group-hover:w-full" />
-              </a>
-            ))}
+            {NAV_LINKS.map((link) =>
+              link.href.startsWith('/') ? (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  className="text-sm font-medium transition-all relative py-1 text-muted hover:text-ink group"
+                >
+                  {link.label}
+                  <span className="absolute bottom-0 left-0 w-0 h-px bg-terracotta transition-all duration-300 group-hover:w-full" />
+                </Link>
+              ) : (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => scrollToSection(e, link.href)}
+                  className="text-sm font-medium transition-all relative py-1 text-muted hover:text-ink group"
+                >
+                  {link.label}
+                  <span className="absolute bottom-0 left-0 w-0 h-px bg-terracotta transition-all duration-300 group-hover:w-full" />
+                </a>
+              )
+            )}
           </div>
 
           <div className="hidden md:flex items-center gap-3">
@@ -92,19 +103,30 @@ export function Header() {
           >
             <Container className="py-6">
               <div className="flex flex-col gap-4">
-                {NAV_LINKS.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={(e) => {
-                      scrollToSection(e, link.href)
-                      setMobileMenuOpen(false)
-                    }}
-                    className="text-xl font-serif font-medium py-2 transition-colors border-b border-border/50 text-ink hover:text-terracotta"
-                  >
-                    {link.label}
-                  </a>
-                ))}
+                {NAV_LINKS.map((link) =>
+                  link.href.startsWith('/') ? (
+                    <Link
+                      key={link.href}
+                      to={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-xl font-serif font-medium py-2 transition-colors border-b border-border/50 text-ink hover:text-terracotta"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={(e) => {
+                        scrollToSection(e, link.href)
+                        setMobileMenuOpen(false)
+                      }}
+                      className="text-xl font-serif font-medium py-2 transition-colors border-b border-border/50 text-ink hover:text-terracotta"
+                    >
+                      {link.label}
+                    </a>
+                  )
+                )}
                 <a
                   href={GITHUB_URL}
                   target="_blank"
