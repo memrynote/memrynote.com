@@ -5,6 +5,7 @@ import { Footer } from '@/components/layout/Footer'
 import { Home } from '@/pages/Home'
 import { FeaturesPage } from '@/pages/Features'
 import { PricingPage } from '@/pages/Pricing'
+import { UseCasesPage } from '@/pages/UseCases'
 import { NotFound } from '@/pages/NotFound'
 
 function ScrollToTop() {
@@ -27,6 +28,7 @@ function AppContent() {
           <Route path="/" element={<Home />} />
           <Route path="/features" element={<FeaturesPage />} />
           <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/use-cases" element={<UseCasesPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
