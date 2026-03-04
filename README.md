@@ -1,83 +1,84 @@
-# Memry — Website
+# memrynote.com
 
-Marketing site for [Memry](https://memrynote.com), the local-first PKM that unifies notes, tasks, journaling, and inbox in one private space.
+Marketing site for **Memry** — a local-first personal knowledge management app that combines notes, tasks, daily journal, and inbox into one distraction-free experience.
 
-## Stack
+Built with React 19, TypeScript, Tailwind CSS 4, and Framer Motion. Deployed on Vercel.
 
-| Layer | Tech |
-|-------|------|
-| Framework | React 19 + TypeScript |
+## Tech Stack
+
+| Layer | Tool |
+| --- | --- |
+| Framework | React 19 + React Router 7 |
+| Language | TypeScript 5.9 |
 | Build | Vite 7 |
-| Styling | Tailwind CSS v4 |
-| Animation | Framer Motion |
-| Routing | React Router v7 |
-| Hosting | Vercel (serverless functions) |
-| Waitlist | Resend Contacts API |
+| Styling | Tailwind CSS 4 |
+| Animation | Framer Motion 12 |
+| Icons | Lucide React |
+| UI | Radix UI primitives |
+| API | Vercel Serverless Functions |
+| Email | Resend |
+| Fonts | Satoshi, Instrument Serif, JetBrains Mono |
 
-## Setup
+## Getting Started
 
 ```bash
 npm install
-cp .env.example .env.local   # fill in RESEND_API_KEY
+cp .env.example .env.local
 ```
 
-### Development
-
-```bash
-# Option A: Vite only (waitlist API proxied via plugin)
-npm run dev
-
-# Option B: Full Vercel runtime (recommended)
-vercel dev
-```
-
-### Production build
-
-```bash
-npm run build     # outputs to dist/
-```
-
-## Environment Variables
+Fill in your environment variables:
 
 | Variable | Required | Description |
-|----------|----------|-------------|
-| `RESEND_API_KEY` | Yes | Resend API key for waitlist signups |
-| `RESEND_SEGMENT_ID` | No | Resend segment to group waitlist contacts |
+| --- | --- | --- |
+| `RESEND_API_KEY` | Yes | API key from [Resend](https://resend.com) |
+| `RESEND_SEGMENT_ID` | No | Segment ID to group waitlist contacts |
 
-Set these in Vercel dashboard for preview/production, or in `.env.local` for local dev.
+```bash
+npm run dev       # dev server on :5173
+npm run build     # type-check + production build
+npm run preview   # preview production build
+```
 
-## Pages
-
-| Route | Description |
-|-------|-------------|
-| `/` | Landing — hero, features, roadmap, pricing, FAQ |
-| `/use-cases` | Persona-based use cases |
-| `/features` | Detailed feature breakdown |
-| `/pricing` | Pricing tiers |
+The dev server proxies `/api/waitlist` requests to the Vercel function locally — no separate backend needed.
 
 ## Project Structure
 
 ```
-src/
-├── components/
-│   ├── layout/       # Header, Footer, Container
-│   ├── sections/     # Hero, Features, Pricing, Roadmap, etc.
-│   ├── shared/       # WaitlistForm, MockupFrame, SectionHeading
-│   └── ui/           # Base UI primitives
-├── pages/            # Route-level components
-├── lib/              # Constants, utilities
-└── hooks/            # Custom hooks
-api/
-└── waitlist.ts       # Vercel serverless — POST /api/waitlist
+├── api/
+│   └── waitlist.ts             # Vercel serverless — Resend waitlist signup
+├── src/
+│   ├── components/
+│   │   ├── layout/             # Header, Footer, Container
+│   │   ├── sections/           # Homepage sections (Hero, Features, Pricing, etc.)
+│   │   ├── shared/             # WaitlistForm, MockupFrame, SectionHeading
+│   │   └── ui/                 # Radix-based primitives (Button, Card, Input, Accordion)
+│   ├── lib/
+│   │   ├── constants.ts        # All copy, data, and content
+│   │   └── utils.ts            # cn() helper
+│   ├── pages/                  # Home, Features, Pricing, UseCases, NotFound
+│   ├── App.tsx                 # Router + layout shell
+│   └── index.css               # Tailwind config, CSS vars, font-face declarations
+└── vercel.json                 # Domain redirects
 ```
 
-## Domains
+## Deployment
 
-- **memrynote.com** — primary
-- **memrynote.ai** — 308 redirect → memrynote.com
-- **www.\*** — 308 redirect → bare domain
+Deployed on **Vercel**. Push to `master` triggers automatic deployment.
 
-Redirect rules live in `vercel.json`.
+- `api/waitlist.ts` runs as a serverless function
+- SPA is served as static output from `vite build`
+- Domain redirects configured in `vercel.json` (www + .ai variants → memrynote.com)
+
+## Design Tokens
+
+| Token | Value | Usage |
+| --- | --- | --- |
+| Background | `#fffcf7` | Warm paper base |
+| Accent | `#c75b39` | Terracotta — CTAs, highlights |
+| Success | `#5b7f6a` | Sage — confirmation states |
+| Heading font | Instrument Serif | Display typography |
+| Body font | Satoshi | Interface text |
+| Mono font | JetBrains Mono | Data, labels, code |
 
 ## License
 
