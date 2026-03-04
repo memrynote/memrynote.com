@@ -1,65 +1,59 @@
-# Memry Website
+# Memry — Website
 
-Marketing website for Memry - a local-first PKM application.
+Marketing site for [Memry](https://memrynote.com), the local-first PKM that unifies notes, tasks, journaling, and inbox in one private space.
 
-## Tech Stack
+## Stack
 
-- **Framework**: React 18 + TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS v4
-- **Components**: shadcn/ui (custom)
-- **Animations**: Framer Motion
-- **Routing**: React Router
+| Layer | Tech |
+|-------|------|
+| Framework | React 19 + TypeScript |
+| Build | Vite 7 |
+| Styling | Tailwind CSS v4 |
+| Animation | Framer Motion |
+| Routing | React Router v7 |
+| Hosting | Vercel (serverless functions) |
+| Waitlist | Resend Contacts API |
 
-## Getting Started
+## Setup
 
 ```bash
 npm install
-npm run dev
+cp .env.example .env.local   # fill in RESEND_API_KEY
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
-
-## Build
+### Development
 
 ```bash
-npm run build
+# Option A: Vite only (waitlist API proxied via plugin)
+npm run dev
+
+# Option B: Full Vercel runtime (recommended)
+vercel dev
 ```
 
-Output is generated in the `dist/` folder.
+### Production build
 
-## Configuration
+```bash
+npm run build     # outputs to dist/
+```
 
-### Formspree (Waitlist)
+## Environment Variables
 
-1. Create a form at [formspree.io](https://formspree.io)
-2. Update `FORMSPREE_ID` in `src/lib/constants.ts`
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `RESEND_API_KEY` | Yes | Resend API key for waitlist signups |
+| `RESEND_SEGMENT_ID` | No | Resend segment to group waitlist contacts |
 
-### Google Analytics
-
-1. Get your GA Measurement ID from Google Analytics
-2. Replace `GA_MEASUREMENT_ID` in `index.html`
-
-## Placeholder Assets
-
-Replace these files with actual assets:
-
-| File                                      | Description                 | Size      |
-| ----------------------------------------- | --------------------------- | --------- |
-| `public/favicon.svg`                      | Browser favicon             | 32x32     |
-| `public/og-image.png`                     | Social sharing image        | 1200x630  |
-| `public/placeholders/hero-screenshot.png` | Hero section app screenshot | 1920x1200 |
-| `public/placeholders/feature-inbox.png`   | Inbox feature screenshot    | 1920x1200 |
-| `public/placeholders/feature-journal.png` | Journal feature screenshot  | 1920x1200 |
-| `public/placeholders/feature-notes.png`   | Notes feature screenshot    | 1920x1200 |
-| `public/placeholders/feature-tasks.png`   | Tasks feature screenshot    | 1920x1200 |
+Set these in Vercel dashboard for preview/production, or in `.env.local` for local dev.
 
 ## Pages
 
-- `/` - Home (landing page)
-- `/features` - Detailed feature breakdown
-- `/pricing` - Pricing tiers and FAQ
-- `/*` - 404 Not Found
+| Route | Description |
+|-------|-------------|
+| `/` | Landing — hero, features, roadmap, pricing, FAQ |
+| `/use-cases` | Persona-based use cases |
+| `/features` | Detailed feature breakdown |
+| `/pricing` | Pricing tiers |
 
 ## Project Structure
 
@@ -67,18 +61,24 @@ Replace these files with actual assets:
 src/
 ├── components/
 │   ├── layout/       # Header, Footer, Container
-│   ├── sections/     # Hero, Features, Pricing, etc.
-│   ├── shared/       # Reusable components
-│   └── ui/           # shadcn/ui components
-├── pages/            # Route pages
-├── lib/              # Utilities and constants
+│   ├── sections/     # Hero, Features, Pricing, Roadmap, etc.
+│   ├── shared/       # WaitlistForm, MockupFrame, SectionHeading
+│   └── ui/           # Base UI primitives
+├── pages/            # Route-level components
+├── lib/              # Constants, utilities
 └── hooks/            # Custom hooks
+api/
+└── waitlist.ts       # Vercel serverless — POST /api/waitlist
 ```
 
-## Design System
+## Domains
 
-Colors match the Memry app's "Warm Utility" aesthetic:
+- **memrynote.com** — primary
+- **memrynote.ai** — 308 redirect → memrynote.com
+- **www.\*** — 308 redirect → bare domain
 
-- **Background**: `#F6F5F0` (warm beige)
-- **Primary**: `#F59E0B` (amber)
-- **Fonts**: DM Sans (UI), Crimson Pro (content), Playfair Display (headlines)
+Redirect rules live in `vercel.json`.
+
+## License
+
+Private. All rights reserved.
