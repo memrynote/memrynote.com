@@ -5,10 +5,10 @@ export const DISCORD_URL = 'https://discord.gg/memry'
 export const TWITTER_DEV_URL = 'https://x.com/h4yfans'
 
 export const NAV_LINKS = [
-  { label: 'Features', href: '#features' },
-  { label: 'Use Cases', href: '/use-cases' },
-  { label: 'Roadmap', href: '#roadmap' },
-  { label: 'Pricing', href: '#pricing' }
+  { label: 'Features', href: '/features' },
+  { label: 'For You', href: '/use-cases' },
+  { label: "What's Next", href: '#roadmap' },
+  { label: 'Plans', href: '#pricing' }
 ] as const
 
 export const FOOTER_LINKS = {
@@ -146,9 +146,9 @@ export const PRICING_TIERS = [
   },
   {
     name: 'Pro',
-    price: '$9',
+    price: '$5',
     period: '/month',
-    yearlyPrice: '$79/year',
+    yearlyPrice: '$4/month billed yearly',
     description: 'For power users who need sync and collaboration.',
     features: [
       'Everything in Free',

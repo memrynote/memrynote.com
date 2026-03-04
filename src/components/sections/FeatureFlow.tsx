@@ -117,29 +117,6 @@ export function FeatureFlow() {
               </circle>
             ))}
 
-            <motion.circle
-              cx="50"
-              cy="50"
-              r="1.5"
-              fill="var(--color-terracotta)"
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 0.5, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 1.5, duration: 0.6, ease: EASE_OUT_EXPO }}
-            >
-              <animate
-                attributeName="r"
-                values="1.5;2;1.5"
-                dur="3s"
-                repeatCount="indefinite"
-              />
-              <animate
-                attributeName="opacity"
-                values="0.5;0.3;0.5"
-                dur="3s"
-                repeatCount="indefinite"
-              />
-            </motion.circle>
           </svg>
 
           {FLOW_NODES.map((node) => {
