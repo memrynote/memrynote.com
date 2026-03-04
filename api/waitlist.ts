@@ -1,14 +1,18 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
-const RESEND_API_KEY = process.env.RESEND_API_KEY
-
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
+  const RESEND_API_KEY = process.env.RESEND_API_KEY
+  const RESEND_SEGMENT_ID = process.env.RESEND_SEGMENT_ID
+
+  console.log('[waitlist] RESEND_API_KEY:', RESEND_API_KEY ? `${RESEND_API_KEY.slice(0, 6)}...` : 'MISSING')
+  console.log('[waitlist] RESEND_SEGMENT_ID:', RESEND_SEGMENT_ID || 'not set')
+
   if (!RESEND_API_KEY) {
-    console.error('RESEND_API_KEY is not configured')
+    console.error('[waitlist] RESEND_API_KEY is not configured')
     return res.status(500).json({ error: 'Server configuration error' })
   }
 
@@ -23,28 +27,38 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: 'Invalid email format' })
   }
 
+  const headers = {
+    Authorization: `Bearer ${RESEND_API_KEY}`,
+    'Content-Type': 'application/json'
+  }
+
   try {
-    const response = await fetch('https://api.resend.com/contacts', {
+    const contactRes = await fetch('https://api.resend.com/contacts', {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${RESEND_API_KEY}`,
-        'Content-Type': 'application/json'
-      },
+      headers,
       body: JSON.stringify({ email })
     })
 
-    const data = await response.json()
+    const contactData = await contactRes.json()
 
-    if (!response.ok) {
-      console.error('Resend API error:', data)
-      return res.status(response.status).json({
-        error: data.message || 'Failed to add contact'
+    if (!contactRes.ok) {
+      console.error('Resend API error:', contactData)
+      return res.status(contactRes.status).json({
+        error: contactData.message || 'Failed to add contact'
+      })
+    }
+
+    if (RESEND_SEGMENT_ID && contactData.id) {
+      await fetch(`https://api.resend.com/segments/${RESEND_SEGMENT_ID}/contacts`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ contact_ids: [contactData.id] })
       })
     }
 
     return res.status(200).json({
       success: true,
-      id: data.id
+      id: contactData.id
     })
   } catch (error) {
     console.error('Waitlist error:', error)
