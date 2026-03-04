@@ -31,7 +31,8 @@ export function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-paper/80 backdrop-blur-md border-b border-border/50">
       <Container>
         <nav className="flex items-center justify-between h-20">
-          <Link to="/" className="flex items-center gap-2 group">
+          <Link to="/" className="flex items-center gap-3 group">
+            <img src="/favicon.svg" alt="" className="w-8 h-8" />
             <span className="font-serif text-3xl font-medium text-ink tracking-tight group-hover:text-terracotta transition-colors">
               Memry.
             </span>
