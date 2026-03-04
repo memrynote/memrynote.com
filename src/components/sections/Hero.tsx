@@ -31,17 +31,17 @@ const itemVariants = {
 
 export function Hero() {
   return (
-    <section id="hero" className="pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+    <section id="hero" className="pt-24 pb-16 md:pt-32 md:pb-20 overflow-hidden">
       <Container>
         <motion.div
-          className="max-w-4xl mx-auto text-center mb-16"
+          className="max-w-4xl mx-auto text-center mb-10"
           variants={containerVariants}
           initial="hidden"
           animate="show"
         >
           <motion.h1
             variants={itemVariants}
-            className="font-serif text-5xl md:text-7xl font-normal text-ink mb-8 leading-[1.1] tracking-tight text-balance"
+            className="font-serif text-5xl md:text-7xl font-normal text-ink mb-5 leading-[1.1] tracking-tight text-balance"
           >
             Your thoughts,{' '}
             <span className="text-terracotta italic relative inline-block">
@@ -59,13 +59,13 @@ export function Hero() {
 
           <motion.p
             variants={itemVariants}
-            className="text-xl md:text-2xl text-muted font-sans max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-xl md:text-2xl text-muted font-sans max-w-2xl mx-auto mb-7 leading-relaxed"
           >
             Notes, tasks, and journal — finally in one place.{' '}
             <span className="text-ink/60">Private, fast, and yours forever.</span>
           </motion.p>
 
-          <motion.div variants={itemVariants} className="max-w-md mx-auto mb-8" id="waitlist">
+          <motion.div variants={itemVariants} className="max-w-md mx-auto mb-5" id="waitlist">
             <WaitlistForm variant="hero" />
           </motion.div>
 

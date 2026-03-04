@@ -105,7 +105,7 @@ export const COMPARISON_DATA = {
       feature: 'End-to-end encryption',
       memry: true,
       notion: false,
-      obsidian: 'partial' as const,
+      obsidian: true,
       logseq: false
     },
     {
@@ -116,7 +116,7 @@ export const COMPARISON_DATA = {
       logseq: 'partial' as const
     }
   ],
-  footnote: 'Obsidian & Logseq can achieve some features via community plugins. Memry includes everything out of the box.'
+  footnote: ''
 } as const
 
 export const PRICING_TIERS = [

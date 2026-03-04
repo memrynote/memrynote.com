@@ -117,12 +117,7 @@ export function SavingsCalculator() {
             </div>
 
             <div className="p-6 md:p-8 bg-card/30">
-              <div className="grid grid-cols-3 gap-4 md:gap-8">
-                <div className="text-center">
-                  <p className="text-xs md:text-sm text-muted mb-1">With Memry</p>
-                  <p className="text-2xl md:text-3xl font-display font-bold text-primary">$0</p>
-                  <p className="text-xs text-muted">/month</p>
-                </div>
+              <div className="grid grid-cols-2 gap-4 md:gap-8 max-w-md mx-auto">
                 <div className="text-center">
                   <p className="text-xs md:text-sm text-muted mb-1">Monthly savings</p>
                   <p className="text-2xl md:text-3xl font-display font-bold text-foreground">
