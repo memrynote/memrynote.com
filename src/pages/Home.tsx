@@ -1,5 +1,6 @@
 import { Hero } from '@/components/sections/Hero'
 import { ValueProps } from '@/components/sections/ValueProps'
+import { FeatureFlow } from '@/components/sections/FeatureFlow'
 import { SavingsCalculator } from '@/components/sections/SavingsCalculator'
 import { Features } from '@/components/sections/Features'
 import { Comparison } from '@/components/sections/Comparison'
@@ -13,6 +14,7 @@ export function Home() {
     <>
       <Hero />
       <ValueProps />
+      <FeatureFlow />
       <SavingsCalculator />
       <Features />
       <Comparison />
