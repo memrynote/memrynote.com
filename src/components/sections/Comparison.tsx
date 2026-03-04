@@ -93,17 +93,22 @@ export function Comparison() {
           </table>
         </motion.div>
 
-        <p className="text-center text-sm text-muted mt-8 font-mono-accent">
-          <span className="inline-flex items-center gap-2 mr-6">
-            <Check className="w-3 h-3 text-sage" /> Yes
-          </span>
-          <span className="inline-flex items-center gap-2 mr-6">
-            <Minus className="w-3 h-3 text-terracotta" /> Partial/Plugin
-          </span>
-          <span className="inline-flex items-center gap-2">
-            <X className="w-3 h-3 text-muted" /> No
-          </span>
-        </p>
+        <div className="text-center mt-8 space-y-3">
+          <p className="text-sm text-muted font-mono-accent">
+            <span className="inline-flex items-center gap-2 mr-6">
+              <Check className="w-3 h-3 text-sage" /> Yes
+            </span>
+            <span className="inline-flex items-center gap-2 mr-6">
+              <Minus className="w-3 h-3 text-terracotta" /> Via plugin or partial
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <X className="w-3 h-3 text-muted" /> No
+            </span>
+          </p>
+          <p className="text-xs text-muted/60 max-w-lg mx-auto leading-relaxed">
+            {COMPARISON_DATA.footnote}
+          </p>
+        </div>
       </Container>
     </section>
   )

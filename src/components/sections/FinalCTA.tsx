@@ -19,7 +19,7 @@ export function FinalCTA() {
             Ready to think beautifully?
           </h2>
           <p className="text-xl text-muted font-sans mb-12 max-w-lg mx-auto leading-relaxed">
-            Join thousands of others waiting for early access to a calmer digital mind.
+            Be the first to try Memry when early access opens.
           </p>
 
           <WaitlistForm variant="centered" />

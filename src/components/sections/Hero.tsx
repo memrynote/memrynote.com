@@ -4,7 +4,7 @@ import { Container } from '@/components/layout/Container'
 import { MockupFrame } from '@/components/shared/MockupFrame'
 import { WaitlistForm } from '@/components/shared/WaitlistForm'
 
-const benefits = ['Free to start', 'Own your data', 'E2EE protected']
+const benefits = ['Free to start', 'Own your data', 'End-to-end encrypted']
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -61,8 +61,8 @@ export function Hero() {
             variants={itemVariants}
             className="text-xl md:text-2xl text-muted font-sans max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            The local-first PKM that combines task management, journaling, and note-taking in one
-            warm, focused space.
+            Notes, tasks, and journal — finally in one place.{' '}
+            <span className="text-ink/60">Private, fast, and yours forever.</span>
           </motion.p>
 
           <motion.div variants={itemVariants} className="max-w-md mx-auto mb-8" id="waitlist">

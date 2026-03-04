@@ -5,10 +5,10 @@ export const DISCORD_URL = 'https://discord.gg/memry'
 export const TWITTER_DEV_URL = 'https://x.com/h4yfans'
 
 export const NAV_LINKS = [
-  { label: 'Features', href: '/features' },
-  { label: 'For You', href: '/use-cases' },
-  { label: "What's Next", href: '#roadmap' },
-  { label: 'Plans', href: '#pricing' }
+  { label: 'Features', href: '#features' },
+  { label: 'Use Cases', href: '/use-cases' },
+  { label: 'Roadmap', href: '#roadmap' },
+  { label: 'Pricing', href: '#pricing' }
 ] as const
 
 export const FOOTER_LINKS = {
@@ -18,18 +18,8 @@ export const FOOTER_LINKS = {
     { label: 'Pricing', href: '#pricing' },
     { label: 'Download', href: '#waitlist' }
   ],
-  resources: [
-    { label: 'Blog', href: '#' },
-    { label: 'Changelog', href: '#' },
-    { label: 'Help Center', href: '#' }
-  ],
-  legal: [
-    { label: 'Privacy', href: '#' },
-    { label: 'Terms', href: '#' }
-  ],
   social: [
     { label: 'Twitter', href: 'https://twitter.com/memrynote' },
-    { label: 'Discord', href: '#' },
     { label: 'GitHub', href: 'https://github.com/memrynote/memry' }
   ]
 } as const
@@ -43,13 +33,13 @@ export const VALUE_PROPS = [
   {
     icon: Lock,
     title: 'Private & Secure',
-    description: "Local-first with E2EE. Your data is encrypted end-to-end. Even we can't read it."
+    description: "Your data stays on your device, encrypted end-to-end. Even we can't read it."
   },
   {
     icon: Zap,
-    title: 'Fast',
+    title: 'Instant Search',
     description:
-      'SQLite-powered instant search. Full-text search across all your notes in milliseconds.'
+      'Find anything across all your notes in milliseconds. No loading spinners, no cloud lag.'
   }
 ] as const
 
@@ -60,7 +50,7 @@ export const FEATURES = [
     title: 'Inbox',
     tagline: 'Capture first, organize later.',
     description:
-      'A contemplative space for processing incoming information. AI-powered clustering detects related items and suggests bulk actions to reduce mental load.',
+      'A space for processing incoming information. Local AI clustering detects related items and suggests bulk actions — nothing leaves your device.',
     highlights: ['AI-powered clustering', 'Quick capture', 'Snooze & file', 'Bulk actions'],
     screenshot: '/placeholders/feature-inbox.png'
   },
@@ -104,28 +94,29 @@ export const COMPARISON_DATA = {
       feature: 'Full task system',
       memry: true,
       notion: true,
-      obsidian: 'partial',
-      logseq: 'partial'
+      obsidian: 'partial' as const,
+      logseq: 'partial' as const
     },
-    { feature: 'Daily journal', memry: true, notion: 'partial', obsidian: 'partial', logseq: true },
-    { feature: 'Inbox/capture', memry: true, notion: false, obsidian: false, logseq: false },
+    { feature: 'Daily journal', memry: true, notion: 'partial' as const, obsidian: 'partial' as const, logseq: true },
+    { feature: 'Inbox / quick capture', memry: true, notion: false, obsidian: 'partial' as const, logseq: 'partial' as const },
     { feature: 'Markdown files', memry: true, notion: false, obsidian: true, logseq: true },
-    { feature: 'Free tier', memry: true, notion: 'partial', obsidian: true, logseq: true },
+    { feature: 'Free tier', memry: true, notion: 'partial' as const, obsidian: true, logseq: true },
     {
       feature: 'End-to-end encryption',
       memry: true,
       notion: false,
-      obsidian: true,
+      obsidian: 'partial' as const,
       logseq: false
     },
     {
-      feature: 'Integrated experience',
+      feature: 'All-in-one (no plugins needed)',
       memry: true,
       notion: true,
       obsidian: false,
-      logseq: 'partial'
+      logseq: 'partial' as const
     }
-  ]
+  ],
+  footnote: 'Obsidian & Logseq can achieve some features via community plugins. Memry includes everything out of the box.'
 } as const
 
 export const PRICING_TIERS = [
@@ -176,7 +167,7 @@ export const FAQ_ITEMS = [
   {
     question: 'Is my data secure?',
     answer:
-      'Absolutely. Your data is stored locally on your device by default. When you use Pro features like sync or collaboration, all data is encrypted end-to-end (E2EE) — meaning only you and the people you share with can read it. Not even we can access your content.'
+      'Yes. Your data lives on your device — not our servers. When you use Pro features like sync, everything is encrypted end-to-end. Only you (and people you explicitly share with) can read your content. We literally cannot access it.'
   },
   {
     question: 'Can I sync between devices?',
@@ -186,7 +177,7 @@ export const FAQ_ITEMS = [
   {
     question: 'Is there a mobile app?',
     answer:
-      "We're focusing on desktop first (macOS, Windows, Linux) to get the experience right. A mobile companion app is planned for after the initial launch."
+      "Desktop first (macOS, Windows, Linux) to nail the experience. Mobile apps for iOS and Android are targeting late 2026. In the meantime, your vault folder syncs with any cloud service you already use."
   },
   {
     question: 'What file format does Memry use?',
@@ -201,25 +192,26 @@ export const FAQ_ITEMS = [
   {
     question: 'When will Memry launch?',
     answer:
-      "We're targeting a public release in mid-2026. Join the waitlist to get early access and help shape the product. Waitlist members will be the first to know when we launch."
+      "Early access opens Q2 2026, with a full public release targeting mid-2026. Waitlist members get first access and can help shape the product before launch."
   }
 ] as const
 
 export const ROADMAP_DATA = {
   releaseDate: 'Mid 2026',
+  earlyAccess: 'Early access opens Q2 2026',
   phases: [
     {
       status: 'done' as const,
       title: 'Core Foundation',
       items: [
-        'Notes with Markdown & Wiki-links',
+        'Notes with Markdown & wiki-links',
         'Backlinks & bidirectional linking',
-        'Full-text search (FTS5)',
-        'Tasks with projects & statuses',
+        'Full-text search',
+        'Tasks with projects & custom statuses',
         'Kanban & Calendar views',
         'Subtasks & recurring tasks',
-        'Daily Journal with templates',
-        'Quick capture Inbox',
+        'Daily journal with templates',
+        'Quick capture inbox',
         'File attachments & version history',
         '8 property types for metadata'
       ]
@@ -228,7 +220,7 @@ export const ROADMAP_DATA = {
       status: 'in-progress' as const,
       title: 'Polish & AI',
       items: [
-        'AI-powered inbox clustering',
+        'AI-powered inbox clustering (local model)',
         'Smart task suggestions',
         'Performance optimization',
         'Keyboard shortcuts refinement',
@@ -239,7 +231,7 @@ export const ROADMAP_DATA = {
       status: 'planned' as const,
       title: 'Expansion',
       items: [
-        'Mobile companion app (iOS/Android)',
+        'Mobile app — iOS & Android (targeting late 2026)',
         'Graph view for note connections',
         'Plugin system & API',
         'Multi-vault support',

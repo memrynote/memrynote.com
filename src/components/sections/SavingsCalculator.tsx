@@ -65,10 +65,10 @@ export function SavingsCalculator() {
           className="text-center mb-12"
         >
           <h2 className="font-display text-3xl md:text-4xl font-semibold text-foreground mb-4">
-            One app. Zero subscriptions.
+            Replace your tool stack
           </h2>
           <p className="text-lg text-muted max-w-2xl mx-auto">
-            Select the tools you currently pay for. See how much you save with Memry.
+            Select the tools you currently pay for. Memry's free plan covers all of this.
           </p>
         </motion.div>
 

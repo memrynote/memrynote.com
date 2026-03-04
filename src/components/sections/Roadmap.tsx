@@ -34,7 +34,7 @@ export function Roadmap() {
       <Container>
         <SectionHeading
           title="Building in Public"
-          subtitle={`Transparent about our progress. Target release: ${ROADMAP_DATA.releaseDate}`}
+          subtitle={`Transparent about our progress. ${ROADMAP_DATA.earlyAccess}.`}
         />
 
         <div className="grid md:grid-cols-3 gap-8 mt-16">
