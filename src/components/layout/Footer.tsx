@@ -1,9 +1,15 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Container } from './Container'
 import { FOOTER_LINKS } from '@/lib/constants'
 
+function footerHref(href: string, pathname: string): string {
+  if (href.startsWith('#') && pathname !== '/') return '/' + href
+  return href
+}
+
 export function Footer() {
   const currentYear = new Date().getFullYear()
+  const { pathname } = useLocation()
 
   return (
     <footer className="border-t border-border bg-paper py-20">
@@ -27,7 +33,7 @@ export function Footer() {
               {FOOTER_LINKS.product.map((link) => (
                 <li key={link.label}>
                   <Link
-                    to={link.href}
+                    to={footerHref(link.href, pathname)}
                     className="text-sm text-muted hover:text-terracotta transition-colors font-medium"
                   >
                     {link.label}

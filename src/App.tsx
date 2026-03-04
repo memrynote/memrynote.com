@@ -8,12 +8,27 @@ import { PricingPage } from '@/pages/Pricing'
 import { UseCasesPage } from '@/pages/UseCases'
 import { NotFound } from '@/pages/NotFound'
 
-function ScrollToTop() {
-  const { pathname } = useLocation()
+function ScrollToHash() {
+  const { pathname, hash } = useLocation()
 
   useEffect(() => {
+    if (hash) {
+      const id = hash.replace('#', '')
+      const scrollTo = () => {
+        const el = document.getElementById(id)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          return true
+        }
+        return false
+      }
+      if (!scrollTo()) {
+        requestAnimationFrame(() => scrollTo())
+      }
+      return
+    }
     window.scrollTo(0, 0)
-  }, [pathname])
+  }, [pathname, hash])
 
   return null
 }
@@ -21,7 +36,7 @@ function ScrollToTop() {
 function AppContent() {
   return (
     <div className="min-h-screen flex flex-col">
-      <ScrollToTop />
+      <ScrollToHash />
       <Header />
       <main className="flex-1">
         <Routes>

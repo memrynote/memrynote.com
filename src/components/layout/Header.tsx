@@ -1,22 +1,31 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Menu, X, Github, MessageCircle } from 'lucide-react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { Menu, X, Github } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Container } from './Container'
-import { NAV_LINKS, GITHUB_URL, DISCORD_URL } from '@/lib/constants'
+import { NAV_LINKS, GITHUB_URL } from '@/lib/constants'
 
-const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-  e.preventDefault()
-  const id = href.replace('#', '')
-  const element = document.getElementById(id)
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+function useScrollToSection() {
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  return (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    const id = href.replace('#', '')
+    const element = document.getElementById(id)
+
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    } else if (location.pathname !== '/') {
+      navigate('/' + href)
+    }
   }
 }
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const scrollToSection = useScrollToSection()
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-paper/80 backdrop-blur-md border-b border-border/50">
@@ -54,31 +63,27 @@ export function Header() {
           </div>
 
           <div className="hidden md:flex items-center gap-3">
-            <a
-              href={GITHUB_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 text-muted hover:text-ink transition-colors"
-              aria-label="View on GitHub"
-            >
-              <Github className="w-5 h-5" />
-            </a>
-            <a
-              href={DISCORD_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 text-muted hover:text-ink transition-colors"
-              aria-label="Join Discord"
-            >
-              <MessageCircle className="w-5 h-5" />
-            </a>
+            <span className="relative group">
+              <a
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-muted hover:text-ink transition-colors inline-block"
+                aria-label="View on GitHub"
+              >
+                <Github className="w-5 h-5" />
+              </a>
+              <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs font-mono-accent bg-ink text-paper rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                Coming soon
+              </span>
+            </span>
             <Button
               variant="default"
               size="sm"
               className="font-sans font-medium rounded-full px-6"
               asChild
             >
-              <a href="#waitlist">Join Waitlist</a>
+              <a href="#waitlist" onClick={(e) => scrollToSection(e, '#waitlist')}>Join Waitlist</a>
             </Button>
           </div>
 
@@ -136,19 +141,10 @@ export function Header() {
                 >
                   <Github className="w-5 h-5" />
                   GitHub
-                </a>
-                <a
-                  href={DISCORD_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-lg font-medium py-2 text-muted hover:text-ink transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  Discord
+                  <span className="text-xs font-mono-accent text-muted/60 ml-1">(coming soon)</span>
                 </a>
                 <Button variant="default" className="mt-4 w-full rounded-full" asChild>
-                  <a href="#waitlist" onClick={() => setMobileMenuOpen(false)}>
+                  <a href="#waitlist" onClick={(e) => { scrollToSection(e, '#waitlist'); setMobileMenuOpen(false) }}>
                     Join Waitlist
                   </a>
                 </Button>
