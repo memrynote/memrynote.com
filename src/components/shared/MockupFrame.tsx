@@ -67,9 +67,9 @@ export function MockupFrame({
           </div>
         </div>
 
-        <div className="relative aspect-[16/10] bg-white group">
+        <div className="relative bg-white group">
           {imageSrc ? (
-            <img src={imageSrc} alt={imageAlt} className="w-full h-full object-cover object-top" />
+            <img src={imageSrc} alt={imageAlt} className="w-full h-auto block" />
           ) : children ? (
             children
           ) : (
