@@ -52,7 +52,7 @@ export function WaitlistForm({ variant = 'hero', className }: WaitlistFormProps)
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className={cn(
-          'flex items-center gap-3 p-4 rounded-lg bg-sage/10 border border-sage/20 text-sage-dark',
+          'flex flex-col items-center gap-3 p-4 rounded-lg bg-sage/10 border border-sage/20 text-sage-dark text-center',
           className
         )}
       >
