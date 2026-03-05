@@ -1,10 +1,53 @@
 import { useState, useEffect } from 'react'
-import { motion, useSpring, useTransform } from 'framer-motion'
-import { Check } from 'lucide-react'
+import { motion, useSpring, useTransform, AnimatePresence } from 'framer-motion'
+import { Check, ArrowRight } from 'lucide-react'
 import { Container } from '@/components/layout/Container'
 import { Button } from '@/components/ui/button'
-import { COMPETITOR_TOOLS } from '@/lib/constants'
 import { cn } from '@/lib/utils'
+
+const BUNDLES = [
+  {
+    id: 'note-taker',
+    label: 'Note Taker',
+    description: 'Notes + journaling basics',
+    tools: [
+      { name: 'Notion Personal Pro', price: 10 },
+      { name: 'Day One Premium', price: 4 },
+    ],
+  },
+  {
+    id: 'productivity-pro',
+    label: 'Productivity Pro',
+    description: 'Notes + tasks + journaling',
+    tools: [
+      { name: 'Notion', price: 10 },
+      { name: 'Todoist Pro', price: 5 },
+      { name: 'Day One', price: 4 },
+    ],
+  },
+  {
+    id: 'knowledge-worker',
+    label: 'Knowledge Worker',
+    description: 'Full PKM stack',
+    tools: [
+      { name: 'Obsidian Sync', price: 8 },
+      { name: 'Todoist Pro', price: 5 },
+      { name: 'Day One', price: 4 },
+      { name: 'Readwise', price: 8 },
+    ],
+  },
+  {
+    id: 'power-user',
+    label: 'Power User',
+    description: 'Premium everything',
+    tools: [
+      { name: 'Notion', price: 10 },
+      { name: 'Things 3', price: 4 },
+      { name: 'Obsidian Sync', price: 8 },
+      { name: 'Day One', price: 4 },
+    ],
+  },
+] as const
 
 function AnimatedNumber({ value }: { value: number }) {
   const spring = useSpring(value, { stiffness: 100, damping: 30 })
@@ -25,37 +68,13 @@ function AnimatedNumber({ value }: { value: number }) {
 }
 
 export function SavingsCalculator() {
-  const [selectedTools, setSelectedTools] = useState<Set<string>>(() => {
-    const defaults = new Set<string>()
-    COMPETITOR_TOOLS.forEach((tool) => {
-      if (tool.defaultSelected) {
-        defaults.add(tool.id)
-      }
-    })
-    return defaults
-  })
-
-  const toggleTool = (id: string) => {
-    setSelectedTools((prev) => {
-      const next = new Set(prev)
-      if (next.has(id)) {
-        next.delete(id)
-      } else {
-        next.add(id)
-      }
-      return next
-    })
-  }
-
-  const monthlySavings = COMPETITOR_TOOLS.filter((tool) => selectedTools.has(tool.id)).reduce(
-    (sum, tool) => sum + tool.price,
-    0
-  )
-
-  const annualSavings = monthlySavings * 12
+  const [selectedId, setSelectedId] = useState(BUNDLES[1].id)
+  const selected = BUNDLES.find((b) => b.id === selectedId)!
+  const monthlyCost = selected.tools.reduce((sum, t) => sum + t.price, 0)
+  const annualSavings = monthlyCost * 12
 
   return (
-    <section className="py-24 bg-card/50">
+    <section className="py-24 bg-paper-alt/30">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -64,11 +83,12 @@ export function SavingsCalculator() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="font-display text-3xl md:text-4xl font-semibold text-foreground mb-4">
+          <h2 className="font-serif text-4xl md:text-5xl font-normal text-ink mb-6 relative inline-block">
             Replace your tool stack
+            <span className="absolute -bottom-2 left-1/4 right-1/4 h-px bg-terracotta/30" />
           </h2>
-          <p className="text-lg text-muted max-w-2xl mx-auto">
-            Select the tools you currently pay for. Memry's free plan covers all of this.
+          <p className="text-xl text-muted font-sans max-w-2xl mx-auto leading-relaxed">
+            Pick the setup closest to yours. See what Memry saves you.
           </p>
         </motion.div>
 
@@ -77,64 +97,117 @@ export function SavingsCalculator() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="max-w-4xl mx-auto"
+          className="max-w-3xl mx-auto"
         >
-          <div className="bg-background rounded-2xl border border-border shadow-sm overflow-hidden">
-            <div className="p-6 md:p-8 border-b border-border">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                {COMPETITOR_TOOLS.map((tool) => {
-                  const isSelected = selectedTools.has(tool.id)
-                  return (
-                    <button
-                      key={tool.id}
-                      type="button"
-                      onClick={() => toggleTool(tool.id)}
-                      className={cn(
-                        'flex items-center gap-3 p-3 rounded-xl border-2 transition-all text-left',
-                        isSelected
-                          ? 'border-primary bg-primary/5'
-                          : 'border-border hover:border-primary/50 hover:bg-card'
-                      )}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+            {BUNDLES.map((bundle) => {
+              const isActive = bundle.id === selectedId
+              const total = bundle.tools.reduce((s, t) => s + t.price, 0)
+              return (
+                <button
+                  key={bundle.id}
+                  type="button"
+                  onClick={() => setSelectedId(bundle.id)}
+                  className={cn(
+                    'relative p-4 rounded-xl border-2 transition-all text-left',
+                    isActive
+                      ? 'border-terracotta bg-terracotta/5 shadow-sm'
+                      : 'border-border hover:border-terracotta/40 hover:bg-paper-alt'
+                  )}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="bundle-indicator"
+                      className="absolute top-3 right-3 w-5 h-5 rounded-full bg-terracotta flex items-center justify-center"
+                      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     >
-                      <div
-                        className={cn(
-                          'w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-colors',
-                          isSelected ? 'bg-primary border-primary' : 'border-muted-foreground/30'
-                        )}
-                      >
-                        {isSelected && <Check className="w-3 h-3 text-primary-foreground" />}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <span className="text-sm font-medium text-foreground block truncate">
-                          {tool.name}
+                      <Check className="w-3 h-3 text-white" />
+                    </motion.div>
+                  )}
+                  <span className="text-sm font-semibold text-ink block mb-1">
+                    {bundle.label}
+                  </span>
+                  <span className="text-xs text-muted block mb-2">{bundle.description}</span>
+                  <span className="text-sm font-medium text-ink">${total}/mo</span>
+                </button>
+              )
+            })}
+          </div>
+
+          <div className="bg-white/50 rounded-2xl border border-border shadow-sm overflow-hidden">
+            <div className="p-6 md:p-8">
+              <div className="grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] gap-6 items-center">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={selectedId}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 10 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <p className="text-xs font-medium text-muted uppercase tracking-wider mb-3">
+                      Your current stack
+                    </p>
+                    <div className="space-y-2">
+                      {selected.tools.map((tool) => (
+                        <div
+                          key={tool.name}
+                          className="flex items-center justify-between py-2 px-3 rounded-lg bg-red-50/60 dark:bg-red-950/20"
+                        >
+                          <span className="text-sm text-ink">{tool.name}</span>
+                          <span className="text-sm font-medium text-red-600 dark:text-red-400">
+                            ${tool.price}/mo
+                          </span>
+                        </div>
+                      ))}
+                      <div className="flex items-center justify-between pt-2 border-t border-border">
+                        <span className="text-sm font-medium text-muted">Total</span>
+                        <span className="text-base font-bold text-ink">
+                          ${monthlyCost}/mo
                         </span>
                       </div>
-                      <span className="text-sm text-muted shrink-0">${tool.price}/mo</span>
-                    </button>
-                  )
-                })}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+
+                <div className="hidden md:flex flex-col items-center gap-2">
+                  <ArrowRight className="w-6 h-6 text-terracotta" />
+                </div>
+
+                <div className="text-center md:text-left">
+                  <p className="text-xs font-medium text-muted uppercase tracking-wider mb-3">
+                    With Memry
+                  </p>
+                  <div className="py-4 px-5 rounded-xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-200/50 dark:border-emerald-800/30">
+                    <p className="text-3xl font-serif font-bold text-emerald-600 dark:text-emerald-400 mb-1">
+                      $0
+                    </p>
+                    <p className="text-sm text-emerald-700/70 dark:text-emerald-300/70">
+                      Free plan covers it all
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="p-6 md:p-8 bg-card/30">
-              <div className="grid grid-cols-2 gap-4 md:gap-8 max-w-md mx-auto">
-                <div className="text-center">
-                  <p className="text-xs md:text-sm text-muted mb-1">Monthly savings</p>
-                  <p className="text-2xl md:text-3xl font-display font-bold text-foreground">
-                    $<AnimatedNumber value={monthlySavings} />
-                  </p>
-                  <p className="text-xs text-muted">/month</p>
+            <div className="px-6 md:px-8 py-5 bg-paper-alt/30 border-t border-border">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-baseline gap-6 text-center sm:text-left">
+                  <div>
+                    <span className="text-xs text-muted block">Monthly</span>
+                    <span className="text-2xl font-serif font-bold text-ink">
+                      $<AnimatedNumber value={monthlyCost} />
+                    </span>
+                    <span className="text-sm text-muted"> saved</span>
+                  </div>
+                  <div>
+                    <span className="text-xs text-muted block">Yearly</span>
+                    <span className="text-2xl font-serif font-bold text-emerald-600">
+                      $<AnimatedNumber value={annualSavings} />
+                    </span>
+                    <span className="text-sm text-muted"> saved</span>
+                  </div>
                 </div>
-                <div className="text-center">
-                  <p className="text-xs md:text-sm text-muted mb-1">Annual savings</p>
-                  <p className="text-2xl md:text-3xl font-display font-bold text-emerald-600">
-                    $<AnimatedNumber value={annualSavings} />
-                  </p>
-                  <p className="text-xs text-muted">/year</p>
-                </div>
-              </div>
-
-              <div className="mt-8 text-center">
                 <Button size="lg" asChild>
                   <a href="#waitlist">
                     Start saving with Memry
@@ -144,6 +217,10 @@ export function SavingsCalculator() {
               </div>
             </div>
           </div>
+
+          <p className="text-xs text-muted text-center mt-4">
+            Prices based on published monthly plans as of 2025. Things 3 one-time cost amortized over 12 months.
+          </p>
         </motion.div>
       </Container>
     </section>

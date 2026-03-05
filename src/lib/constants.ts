@@ -1,26 +1,26 @@
 import { Inbox, BookOpen, FileText, CheckSquare, FolderOpen, Lock, Zap, Briefcase, GraduationCap, Laptop, Sparkles } from 'lucide-react'
 
-export const GITHUB_URL = 'https://github.com/memrynote/memry'
+export const GITHUB_URL = 'https://github.com/memrynote/memrynote'
 export const DISCORD_URL = 'https://discord.gg/memry'
 export const TWITTER_DEV_URL = 'https://x.com/h4yfans'
 
 export const NAV_LINKS = [
   { label: 'Features', href: '#features' },
   { label: 'Use Cases', href: '/use-cases' },
-  { label: 'Roadmap', href: '#roadmap' },
-  { label: 'Pricing', href: '#pricing' }
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'Security', href: '/security' }
 ] as const
 
 export const FOOTER_LINKS = {
   product: [
     { label: 'Features', href: '#features' },
-    { label: 'Roadmap', href: '#roadmap' },
     { label: 'Pricing', href: '#pricing' },
+    { label: 'Security', href: '/security' },
     { label: 'Download', href: '#waitlist' }
   ],
   social: [
     { label: 'Twitter', href: 'https://twitter.com/memrynote' },
-    { label: 'GitHub', href: 'https://github.com/memrynote/memry' }
+    { label: 'GitHub', href: 'https://github.com/memrynote/memrynote' }
   ]
 } as const
 
@@ -241,19 +241,6 @@ export const ROADMAP_DATA = {
     }
   ]
 } as const
-
-export const COMPETITOR_TOOLS = [
-  { id: 'notes', name: 'Note-taking app', price: 10, defaultSelected: true },
-  { id: 'tasks', name: 'Task manager', price: 5, defaultSelected: true },
-  { id: 'sync', name: 'Cloud sync service', price: 8, defaultSelected: false },
-  { id: 'knowledge', name: 'Knowledge base', price: 12, defaultSelected: false },
-  { id: 'pkm', name: 'Second brain tool', price: 15, defaultSelected: false },
-  { id: 'journal', name: 'Daily journal app', price: 4, defaultSelected: false },
-  { id: 'readlater', name: 'Read-later app', price: 5, defaultSelected: false },
-  { id: 'bookmarks', name: 'Bookmark manager', price: 3, defaultSelected: false },
-  { id: 'writing', name: 'Writing app', price: 5, defaultSelected: false },
-  { id: 'habits', name: 'Habit tracker', price: 4, defaultSelected: false }
-] as const
 
 export const USE_CASES = [
   {

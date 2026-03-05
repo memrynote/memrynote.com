@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
 import { Container } from '@/components/layout/Container'
-import { MockupFrame } from '@/components/shared/MockupFrame'
+import { DemoShowcase } from '@/components/demo/DemoShowcase'
 import { WaitlistForm } from '@/components/shared/WaitlistForm'
 
-const benefits = ['Free to start', 'Own your data', 'End-to-end encrypted']
+const BENEFITS = ['Free to start', 'Own your data', 'End-to-end encrypted']
+
+const WAITLIST_COUNT = 580
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -65,15 +67,28 @@ export function Hero() {
             <span className="text-ink/60">Private, fast, and yours forever.</span>
           </motion.p>
 
-          <motion.div variants={itemVariants} className="max-w-md mx-auto mb-5" id="waitlist">
+          <motion.div variants={itemVariants} className="max-w-md mx-auto mb-4" id="waitlist">
             <WaitlistForm variant="hero" />
+          </motion.div>
+
+          <motion.div
+            variants={itemVariants}
+            className="flex items-center justify-center gap-2 mb-6 text-sm text-muted"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sage opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-sage" />
+            </span>
+            <span className="font-mono-accent">
+              {WAITLIST_COUNT.toLocaleString()}+ people on the waitlist
+            </span>
           </motion.div>
 
           <motion.div
             variants={itemVariants}
             className="flex flex-wrap items-center justify-center gap-6 md:gap-8 text-sm text-muted font-mono-accent uppercase tracking-wide"
           >
-            {benefits.map((benefit) => (
+            {BENEFITS.map((benefit) => (
               <div key={benefit} className="flex items-center gap-2">
                 <div className="rounded-full border border-terracotta/40 p-0.5">
                   <Check className="w-3 h-3 text-terracotta" />
@@ -91,10 +106,7 @@ export function Hero() {
           className="max-w-5xl mx-auto relative z-10"
         >
           <div className="absolute -inset-4 bg-terracotta/5 blur-3xl rounded-full -z-10" />
-          <MockupFrame
-            imageSrc="/placeholders/hero-screenshot.png"
-            imageAlt="Memry app interface"
-          />
+          <DemoShowcase />
         </motion.div>
       </Container>
     </section>

@@ -105,7 +105,7 @@ export function Roadmap() {
           <p className="text-sm text-muted">
             Have a feature request?{' '}
             <a
-              href="https://github.com/memrynote/memry/issues"
+              href="https://github.com/memrynote/memrynote/issues"
               target="_blank"
               rel="noopener noreferrer"
               className="text-terracotta hover:underline font-medium"

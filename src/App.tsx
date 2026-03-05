@@ -6,6 +6,7 @@ import { Home } from '@/pages/Home'
 import { FeaturesPage } from '@/pages/Features'
 import { PricingPage } from '@/pages/Pricing'
 import { UseCasesPage } from '@/pages/UseCases'
+import { SecurityPage } from '@/pages/Security'
 import { NotFound } from '@/pages/NotFound'
 
 function ScrollToHash() {
@@ -44,6 +45,7 @@ function AppContent() {
           <Route path="/features" element={<FeaturesPage />} />
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/use-cases" element={<UseCasesPage />} />
+          <Route path="/security" element={<SecurityPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
