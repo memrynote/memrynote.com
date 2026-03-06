@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Container } from '@/components/layout/Container'
 import { SectionHeading } from '@/components/shared/SectionHeading'
 import { WaitlistForm } from '@/components/shared/WaitlistForm'
+import { PageHead } from '@/components/shared/PageHead'
 import { USE_CASES } from '@/lib/constants'
 
 const containerVariants = {
@@ -24,6 +25,7 @@ const cardVariants = {
 export function UseCasesPage() {
   return (
     <main className="pt-24">
+      <PageHead page="useCases" />
       <section className="py-16">
         <Container>
           <SectionHeading

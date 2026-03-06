@@ -138,11 +138,31 @@ export function Roadmap() {
         </div>
 
         <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-14 flex items-start gap-4 rounded-xl border border-terracotta/20 bg-terracotta/5 p-5"
+        >
+          <span className="text-2xl shrink-0" role="img" aria-label="mobile phone">
+            {'\u{1F4F1}'}
+          </span>
+          <div>
+            <p className="text-ink font-medium text-sm">
+              Mobile apps &mdash; iOS & Android targeting late 2026
+            </p>
+            <p className="text-muted text-sm mt-1">
+              Until then, your vault syncs via any cloud folder you already use (iCloud, Dropbox, Google Drive, Syncthing).
+            </p>
+          </div>
+        </motion.div>
+
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-16 pt-8 border-t border-border/40 flex flex-wrap items-center justify-center gap-6 text-sm text-muted"
+          className="mt-8 pt-8 border-t border-border/40 flex flex-wrap items-center justify-center gap-6 text-sm text-muted"
         >
           <a
             href="https://github.com/memrynote/memrynote/issues"

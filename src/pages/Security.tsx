@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { PageHead } from '@/components/shared/PageHead'
 import {
   HardDrive,
   Lock,
@@ -160,6 +161,7 @@ function Principle({
 export function SecurityPage() {
   return (
     <main className="pt-24">
+      <PageHead page="security" />
       <section className="py-20">
         <Container size="md">
           <motion.div

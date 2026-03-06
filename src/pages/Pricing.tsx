@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
 import { Container } from '@/components/layout/Container'
 import { SectionHeading } from '@/components/shared/SectionHeading'
+import { PageHead } from '@/components/shared/PageHead'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import {
@@ -39,6 +40,7 @@ const pricingFAQ = [
 export function PricingPage() {
   return (
     <main className="pt-24">
+      <PageHead page="pricing" />
       <section className="py-16">
         <Container size="md">
           <SectionHeading

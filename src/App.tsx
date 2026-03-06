@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
+import { HelmetProvider } from 'react-helmet-async'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { Home } from '@/pages/Home'
@@ -56,8 +57,10 @@ function AppContent() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </HelmetProvider>
   )
 }
