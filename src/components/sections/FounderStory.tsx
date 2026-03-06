@@ -26,18 +26,7 @@ export function FounderStory() {
               <path d="M0,12 Q25,0 50,8 T100,6 T150,10 T200,4 T250,8 T300,6 T350,10 T400,4 T450,8 T500,6 T550,10 T600,4 T650,8 T700,6 T750,10 T800,4 T850,8 T900,6 T950,10 T1000,4 L1000,12 Z" />
             </svg>
 
-            <div className="absolute top-4 right-4 md:top-6 md:right-6">
-              <div
-                className="w-14 h-14 rounded-full border-2 border-terracotta/30 flex items-center justify-center"
-                style={{ transform: 'rotate(12deg)' }}
-              >
-                <span className="font-mono-accent text-[9px] text-terracotta/60 uppercase leading-tight text-center">
-                  EST.
-                  <br />
-                  2025
-                </span>
-              </div>
-            </div>
+
 
             <div className="flex flex-col md:flex-row items-start gap-8">
               <div className="shrink-0">

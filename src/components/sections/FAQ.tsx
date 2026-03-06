@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import { Container } from '@/components/layout/Container'
-import { SectionHeading } from '@/components/shared/SectionHeading'
 import {
   Accordion,
   AccordionContent,
@@ -9,14 +8,24 @@ import {
 } from '@/components/ui/accordion'
 import { FAQ_ITEMS } from '@/lib/constants'
 
-export function FAQ() {
+export function CleanNeutralFAQ() {
   return (
-    <section className="py-24 bg-paper">
+    <section className="py-24 border-t border-border/40">
       <Container size="sm">
-        <SectionHeading
-          title="Frequently asked questions"
-          subtitle="Everything you need to know about Memry."
-        />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center mb-12"
+        >
+          <h2 className="font-serif text-3xl md:text-4xl text-ink mb-3">
+            Questions & answers
+          </h2>
+          <p className="text-muted text-lg">
+            Everything you need to know before joining the waitlist.
+          </p>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -24,17 +33,17 @@ export function FAQ() {
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <Accordion type="single" collapsible className="w-full space-y-4">
-            {FAQ_ITEMS.map((item, index) => (
+          <Accordion type="single" collapsible className="w-full">
+            {FAQ_ITEMS.map((item, i) => (
               <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="border border-border/60 rounded-lg px-6 bg-white/50 data-[state=open]:bg-white transition-colors"
+                key={i}
+                value={`faq-${i}`}
+                className="border-b border-border/60 last:border-0 rounded-none px-0 bg-transparent data-[state=open]:bg-transparent"
               >
-                <AccordionTrigger className="text-left text-ink font-serif text-xl hover:text-terracotta hover:no-underline py-6">
+                <AccordionTrigger className="text-left text-ink text-lg hover:text-terracotta hover:no-underline py-5 font-sans font-medium">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted leading-relaxed pb-6 text-base font-sans">
+                <AccordionContent className="text-muted leading-relaxed pb-5 text-[17px] font-sans max-w-[90%]">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>
