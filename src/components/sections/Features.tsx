@@ -1,9 +1,71 @@
+import { Fragment } from 'react'
 import { motion } from 'framer-motion'
 import { Container } from '@/components/layout/Container'
 import { SectionHeading } from '@/components/shared/SectionHeading'
 import { MockupFrame } from '@/components/shared/MockupFrame'
 import { FEATURES } from '@/lib/constants'
 import { cn } from '@/lib/utils'
+
+function FlowConnector({ index }: { index: number }) {
+  const isEven = index % 2 === 0
+
+  return (
+    <div className="my-4">
+      <div className="hidden md:block">
+        <svg className="w-full h-24" viewBox="0 0 800 200" fill="none">
+          <motion.path
+            d={
+              isEven
+                ? 'M 200,10 C 200,100 600,100 600,190'
+                : 'M 600,10 C 600,100 200,100 200,190'
+            }
+            stroke="var(--color-terracotta)"
+            strokeWidth="1.5"
+            strokeOpacity="0.2"
+            strokeDasharray="8 6"
+            strokeLinecap="round"
+            fill="none"
+            initial={{ pathLength: 0 }}
+            whileInView={{ pathLength: 1 }}
+            viewport={{ once: true, margin: '-20px' }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+          />
+          <motion.circle
+            cx={isEven ? 600 : 200}
+            cy={190}
+            r={4}
+            fill="var(--color-terracotta)"
+            fillOpacity={0.25}
+            initial={{ opacity: 0, scale: 0 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 1.2, duration: 0.4 }}
+          />
+        </svg>
+      </div>
+
+      <div className="md:hidden flex justify-center">
+        <motion.svg
+          width="2"
+          height="48"
+          viewBox="0 0 2 48"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <line
+            x1="1" y1="0" x2="1" y2="48"
+            stroke="var(--color-terracotta)"
+            strokeWidth="1"
+            strokeOpacity="0.2"
+            strokeDasharray="4 4"
+          />
+        </motion.svg>
+      </div>
+    </div>
+  )
+}
 
 export function Features() {
   return (
@@ -14,10 +76,11 @@ export function Features() {
           subtitle="Everything you need to capture, organize, and act on your ideas. Nothing you don't."
         />
 
-        <div className="space-y-32">
+        <div>
           {FEATURES.map((feature, index) => (
-            <motion.div
-              key={feature.id}
+            <Fragment key={feature.id}>
+              {index > 0 && <FlowConnector index={index - 1} />}
+              <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
@@ -71,6 +134,7 @@ export function Features() {
                 />
               </div>
             </motion.div>
+            </Fragment>
           ))}
         </div>
       </Container>

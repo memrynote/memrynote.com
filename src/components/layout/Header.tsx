@@ -30,13 +30,13 @@ export function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6">
       <Container size="full">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between rounded-[28px] border border-white/70 bg-paper/60 px-4 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.6)] backdrop-blur-2xl backdrop-saturate-150 sm:px-6">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between rounded-[28px] border border-white/70 bg-paper/60 px-4 py-2 shadow-[0_4px_30px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.6)] backdrop-blur-2xl backdrop-saturate-150 sm:px-5">
           <Link to="/" className="flex items-center gap-3 group">
-            <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-terracotta/20 bg-white/80 shadow-sm">
-              <img src="/favicon.svg" alt="" className="w-6 h-6" />
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-terracotta/20 bg-white/80 shadow-sm">
+              <img src="/favicon.svg" alt="" className="w-5 h-5" />
             </span>
             <div className="leading-none">
-              <span className="block font-serif text-3xl font-medium tracking-tight text-ink transition-colors group-hover:text-terracotta">
+              <span className="block font-serif text-2xl font-medium tracking-tight text-ink transition-colors group-hover:text-terracotta">
                 Memry.
               </span>
               <span className="section-kicker hidden text-[10px] text-muted/70 sm:block">
@@ -80,7 +80,7 @@ export function Header() {
               href={GITHUB_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/70 bg-white/55 text-muted transition-colors hover:text-ink"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/70 bg-white/55 text-muted transition-colors hover:text-ink"
               aria-label="View on GitHub"
             >
               <Github className="w-5 h-5" />

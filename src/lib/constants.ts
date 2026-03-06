@@ -7,7 +7,6 @@ export const TWITTER_DEV_URL = 'https://x.com/h4yfans'
 export const NAV_LINKS = [
   { label: 'Features', href: '#features' },
   { label: 'Use Cases', href: '/use-cases' },
-  { label: 'Pricing', href: '#pricing' },
   { label: 'Security', href: '/security' }
 ] as const
 

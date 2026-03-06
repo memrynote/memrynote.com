@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Check } from 'lucide-react'
 import { Container } from '@/components/layout/Container'
@@ -7,7 +7,7 @@ import { WaitlistForm } from '@/components/shared/WaitlistForm'
 
 const BENEFITS = ['Open source', 'Own your data', 'End-to-end encrypted']
 
-const INITIAL_WAITLIST_COUNT = 580
+const WAITLIST_COUNT = '450+'
 
 const HEADLINE_WORDS = ['Your', 'thoughts,']
 const HIGHLIGHT_WORDS = ['beautifully', 'organized.']
@@ -20,43 +20,10 @@ const SUBTITLE_DELAY = HIGHLIGHT_DELAY + 0.4
 const FORM_DELAY = SUBTITLE_DELAY + 0.3
 const BENEFITS_DELAY = FORM_DELAY + 0.2
 
-function useWaitlistCounter(initial: number): number {
-  const [count, setCount] = useState(initial)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCount((c) => c + 1)
-    }, 30000)
-    return () => clearInterval(interval)
-  }, [])
-
-  return count
-}
-
-function AnimatedDigit({ digit }: { digit: string }) {
-  return (
-    <span className="inline-block overflow-hidden h-[1.2em] align-bottom">
-      <motion.span
-        key={digit}
-        className="inline-block"
-        initial={{ y: '100%' }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      >
-        {digit}
-      </motion.span>
-    </span>
-  )
-}
-
-function WaitlistCounter({ count }: { count: number }) {
-  const digits = count.toLocaleString().split('')
+function WaitlistCounter() {
   return (
     <span className="font-mono-accent">
-      {digits.map((d, i) => (
-        <AnimatedDigit key={`${i}-${d}`} digit={d} />
-      ))}
-      + people on the waitlist
+      {WAITLIST_COUNT} people on the waitlist
     </span>
   )
 }
@@ -64,7 +31,7 @@ function WaitlistCounter({ count }: { count: number }) {
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
-  const waitlistCount = useWaitlistCounter(INITIAL_WAITLIST_COUNT)
+
 
   return (
     <section
@@ -74,8 +41,8 @@ export function Hero() {
     >
       <Container>
         <div className="flex flex-col items-center">
-          <div className="max-w-2xl text-center">
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-normal text-ink leading-[1.08] tracking-tight">
+          <div className="text-center">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-normal text-ink leading-[1.08] tracking-tight md:whitespace-nowrap">
               {HEADLINE_WORDS.map((word, i) => (
                 <motion.span
                   key={word}
@@ -91,7 +58,7 @@ export function Hero() {
                   {word}
                 </motion.span>
               ))}
-              <br className="hidden md:block" />
+              {' '}
               <span className="relative inline-block">
                 {HIGHLIGHT_WORDS.map((word, i) => (
                   <motion.span
@@ -133,18 +100,7 @@ export function Hero() {
                   />
                 </svg>
 
-                {/* Highlighter sweep */}
-                <motion.span
-                  className="absolute inset-0 -inset-x-1 bg-terracotta/[0.08] rounded-sm -z-0"
-                  initial={{ scaleX: 0 }}
-                  animate={isInView ? { scaleX: 1 } : undefined}
-                  transition={{
-                    duration: 0.5,
-                    delay: HIGHLIGHT_DELAY,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  style={{ transformOrigin: 'left center' }}
-                />
+
               </span>
             </h1>
 
@@ -158,7 +114,7 @@ export function Hero() {
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
-              One app for notes, tasks & journal — <span className="font-semibold text-ink">private by design, open at heart.</span>
+              One app for inbox, notes, tasks & journal — <span className="font-semibold text-ink">private by design, open at heart.</span>
             </motion.p>
 
             <motion.div
@@ -185,7 +141,7 @@ export function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sage opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-sage" />
               </span>
-              <WaitlistCounter count={waitlistCount} />
+              <WaitlistCounter />
             </motion.div>
 
             <motion.div
