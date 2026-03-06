@@ -1,4 +1,12 @@
-const BASE_URL = 'https://memrynote.com'
+export const BASE_URL = 'https://memrynote.com'
+export const SITE_NAME = 'Memry'
+export const TWITTER_HANDLE = '@memrynote'
+export const SOCIAL_IMAGE_PATH = '/og-image.png'
+export const SOCIAL_IMAGE_URL = `${BASE_URL}${SOCIAL_IMAGE_PATH}`
+export const SOCIAL_IMAGE_WIDTH = '1200'
+export const SOCIAL_IMAGE_HEIGHT = '630'
+export const SOCIAL_IMAGE_ALT =
+  'Memry app preview showing notes, tasks, and journal in one local-first workspace.'
 
 interface PageMeta {
   title: string

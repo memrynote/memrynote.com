@@ -7,20 +7,19 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(__dirname, '..')
 const DIST = path.resolve(ROOT, 'dist')
 
-function extractHelmetTags(html: string): { cleaned: string; headTags: string } {
-  const tagPatterns = [
-    /<title[^>]*>.*?<\/title>/gi,
-    /<meta[^>]*(?:name|property)=["'](?:description|og:|twitter:)[^>]*\/?>/gi,
-    /<link[^>]*rel=["']canonical["'][^>]*\/?>/gi,
-    /<script[^>]*type=["']application\/ld\+json["'][^>]*>.*?<\/script>/gi,
-  ]
+const SEO_TAG_PATTERNS = [
+  /<title[^>]*>.*?<\/title>/gi,
+  /<meta[^>]*(?:name|property)=["'](?:description|og:|twitter:)[^>]*\/?>/gi,
+  /<link[^>]*rel=["']canonical["'][^>]*\/?>/gi,
+  /<script[^>]*type=["']application\/ld\+json["'][^>]*>.*?<\/script>/gi,
+]
 
+function extractSeoTags(html: string): { cleaned: string; headTags: string } {
   const extracted: string[] = []
   let cleaned = html
 
-  for (const pattern of tagPatterns) {
+  for (const pattern of SEO_TAG_PATTERNS) {
     cleaned = cleaned.replace(pattern, (match) => {
-      if (match.includes('data-rh')) return match
       extracted.push(match)
       return ''
     })
@@ -29,31 +28,44 @@ function extractHelmetTags(html: string): { cleaned: string; headTags: string } 
   return { cleaned, headTags: extracted.join('\n    ') }
 }
 
+function stripSeoTags(html: string): string {
+  let cleaned = html
+
+  for (const pattern of SEO_TAG_PATTERNS) {
+    cleaned = cleaned.replace(pattern, '')
+  }
+
+  return cleaned
+}
+
 async function prerender() {
   const vite = await createServer({
     root: ROOT,
-    server: { middlewareMode: true },
+    server: {
+      hmr: false,
+      middlewareMode: true,
+    },
     appType: 'custom',
   })
 
   try {
     const { render, ROUTES } = await vite.ssrLoadModule('/src/entry-server.tsx')
     const template = fs.readFileSync(path.resolve(DIST, 'index.html'), 'utf-8')
+    const templateWithoutSeo = stripSeoTags(template)
 
     for (const route of ROUTES as string[]) {
       const { html: appHtml } = render(route)
+      const { cleaned: cleanedAppHtml, headTags } = extractSeoTags(appHtml)
 
-      const { cleaned: cleanedAppHtml, headTags } = extractHelmetTags(appHtml)
-
-      let page = template.replace(
+      let page = templateWithoutSeo.replace(
         '<div id="root"></div>',
         `<div id="root">${cleanedAppHtml}</div>`
       )
 
       if (headTags) {
         page = page.replace(
-          /<title>.*?<\/title>/,
-          headTags
+          '</head>',
+          `    ${headTags}\n  </head>`
         )
       }
 
