@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import {
   HardDrive,
   Lock,
-  BarChart3,
   Brain,
   RefreshCw,
   Github,

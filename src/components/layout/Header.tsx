@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { Menu, X, Github } from 'lucide-react'
+import { Menu, X, Github, ArrowUpRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Container } from './Container'
@@ -28,73 +28,83 @@ export function Header() {
   const scrollToSection = useScrollToSection()
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-paper/80 backdrop-blur-md border-b border-border/50">
-      <Container>
-        <nav className="flex items-center justify-between h-20">
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6">
+      <Container size="full">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between rounded-[28px] border border-white/70 bg-paper/75 px-4 py-3 shadow-[var(--shadow-float)] backdrop-blur-xl sm:px-6">
           <Link to="/" className="flex items-center gap-3 group">
-            <img src="/favicon.svg" alt="" className="w-8 h-8" />
-            <span className="font-serif text-3xl font-medium text-ink tracking-tight group-hover:text-terracotta transition-colors">
-              Memry.
+            <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-terracotta/20 bg-white/80 shadow-sm">
+              <img src="/favicon.svg" alt="" className="w-6 h-6" />
             </span>
+            <div className="leading-none">
+              <span className="block font-serif text-3xl font-medium tracking-tight text-ink transition-colors group-hover:text-terracotta">
+                Memry.
+              </span>
+              <span className="section-kicker hidden text-[10px] text-muted/70 sm:block">
+                A Private Memory Atelier
+              </span>
+            </div>
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-2 rounded-full border border-border/70 bg-white/55 p-1.5">
             {NAV_LINKS.map((link) =>
               link.href.startsWith('/') ? (
                 <Link
                   key={link.href}
                   to={link.href}
-                  className="text-sm font-medium transition-all relative py-1 text-muted hover:text-ink group"
+                  className="rounded-full px-4 py-2 text-sm font-medium text-muted transition-colors hover:bg-white hover:text-ink"
                 >
                   {link.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-px bg-terracotta transition-all duration-300 group-hover:w-full" />
                 </Link>
               ) : (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={(e) => scrollToSection(e, link.href)}
-                  className="text-sm font-medium transition-all relative py-1 text-muted hover:text-ink group"
+                  className="rounded-full px-4 py-2 text-sm font-medium text-muted transition-colors hover:bg-white hover:text-ink"
                 >
                   {link.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-px bg-terracotta transition-all duration-300 group-hover:w-full" />
                 </a>
               )
             )}
           </div>
 
           <div className="hidden md:flex items-center gap-3">
-            <span className="relative group">
-              <a
-                href={GITHUB_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 text-muted hover:text-ink transition-colors inline-block"
-                aria-label="View on GitHub"
-              >
-                <Github className="w-5 h-5" />
-              </a>
-              <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs font-mono-accent bg-ink text-paper rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                Coming soon
+            <div className="hidden xl:flex items-center gap-3 rounded-full border border-border/70 bg-white/55 px-4 py-2">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sage opacity-75" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-sage" />
               </span>
-            </span>
+              <span className="section-kicker text-[10px] text-muted">Early access Q2 2026</span>
+            </div>
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/70 bg-white/55 text-muted transition-colors hover:text-ink"
+              aria-label="View on GitHub"
+            >
+              <Github className="w-5 h-5" />
+            </a>
             <Button
               variant="default"
               size="sm"
-              className="font-sans font-medium rounded-full px-6"
+              className="rounded-full px-6"
               asChild
             >
-              <a href="#waitlist" onClick={(e) => scrollToSection(e, '#waitlist')}>Join Waitlist</a>
+              <a href="#waitlist" onClick={(e) => scrollToSection(e, '#waitlist')}>
+                Join waitlist
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
             </Button>
           </div>
 
           <button
             type="button"
-            className="md:hidden p-2 text-ink hover:text-terracotta transition-colors"
+            className="md:hidden rounded-full border border-border/70 bg-white/60 p-3 text-ink transition-colors hover:text-terracotta"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </nav>
       </Container>
@@ -102,20 +112,21 @@ export function Header() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-border bg-paper overflow-hidden"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            className="md:hidden px-3 pt-3 sm:px-6"
           >
-            <Container className="py-6">
-              <div className="flex flex-col gap-4">
+            <Container size="full">
+              <div className="mx-auto flex max-w-6xl flex-col gap-4 rounded-[28px] border border-white/70 bg-paper/90 p-5 shadow-[var(--shadow-float)] backdrop-blur-xl">
+                <div className="section-kicker text-[10px] text-muted">A private room for notes, tasks, and memory</div>
                 {NAV_LINKS.map((link) =>
                   link.href.startsWith('/') ? (
                     <Link
                       key={link.href}
                       to={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="text-xl font-serif font-medium py-2 transition-colors border-b border-border/50 text-ink hover:text-terracotta"
+                      className="rounded-2xl border border-border/60 bg-white/65 px-4 py-3 text-xl font-serif font-medium text-ink transition-colors hover:text-terracotta"
                     >
                       {link.label}
                     </Link>
@@ -127,7 +138,7 @@ export function Header() {
                         scrollToSection(e, link.href)
                         setMobileMenuOpen(false)
                       }}
-                      className="text-xl font-serif font-medium py-2 transition-colors border-b border-border/50 text-ink hover:text-terracotta"
+                      className="rounded-2xl border border-border/60 bg-white/65 px-4 py-3 text-xl font-serif font-medium text-ink transition-colors hover:text-terracotta"
                     >
                       {link.label}
                     </a>
@@ -137,14 +148,16 @@ export function Header() {
                   href={GITHUB_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-lg font-medium py-2 text-muted hover:text-ink transition-colors"
+                  className="flex items-center justify-between rounded-2xl border border-border/60 bg-white/65 px-4 py-3 text-lg font-medium text-muted transition-colors hover:text-ink"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <Github className="w-5 h-5" />
-                  GitHub
-                  <span className="text-xs font-mono-accent text-muted/60 ml-1">(coming soon)</span>
+                  <span className="flex items-center gap-2">
+                    <Github className="w-5 h-5" />
+                    GitHub
+                  </span>
+                  <ArrowUpRight className="w-4 h-4" />
                 </a>
-                <Button variant="default" className="mt-4 w-full rounded-full" asChild>
+                <Button variant="default" className="mt-2 w-full rounded-full" asChild>
                   <a href="#waitlist" onClick={(e) => { scrollToSection(e, '#waitlist'); setMobileMenuOpen(false) }}>
                     Join Waitlist
                   </a>

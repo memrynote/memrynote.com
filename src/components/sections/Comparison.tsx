@@ -5,13 +5,40 @@ import { SectionHeading } from '@/components/shared/SectionHeading'
 import { COMPARISON_DATA } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
-function ComparisonCell({ value }: { value: boolean | 'partial' }) {
+function ComparisonCell({
+  value,
+  isMemry,
+  competitorHasNo,
+  rowIndex
+}: {
+  value: boolean | 'partial'
+  isMemry?: boolean
+  competitorHasNo?: boolean
+  rowIndex: number
+}) {
   if (value === true) {
+    const shouldBounce = isMemry && competitorHasNo
     return (
       <div className="flex justify-center">
-        <div className="w-6 h-6 rounded-full bg-sage/10 flex items-center justify-center">
+        <motion.div
+          className="w-6 h-6 rounded-full bg-sage/10 flex items-center justify-center"
+          {...(shouldBounce
+            ? {
+                initial: { scale: 1 },
+                whileInView: { scale: [1, 1.3, 1] },
+                viewport: { once: true },
+                transition: {
+                  delay: 0.15 + rowIndex * 0.05,
+                  duration: 0.3,
+                  type: 'spring',
+                  stiffness: 400,
+                  damping: 15
+                }
+              }
+            : {})}
+        >
           <Check className="w-4 h-4 text-sage" />
-        </div>
+        </motion.div>
       </div>
     )
   }
@@ -36,21 +63,18 @@ function ComparisonCell({ value }: { value: boolean | 'partial' }) {
 }
 
 export function Comparison() {
+  const hasCompetitorNo = (row: (typeof COMPARISON_DATA.rows)[number]): boolean =>
+    !row.notion || !row.obsidian || !row.logseq
+
   return (
-    <section className="py-24 bg-paper-alt/30">
+    <section className="py-24 zone-transition">
       <Container size="md">
         <SectionHeading
           title="How we compare"
           subtitle="We built Memry to be the PKM we wished existed."
         />
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="overflow-x-auto rounded-xl border border-border/50 bg-white/50 shadow-sm"
-        >
+        <div className="overflow-x-auto rounded-xl border border-border/50 bg-white/50 shadow-sm">
           <table className="w-full">
             <thead>
               <tr className="border-b border-border/60">
@@ -60,38 +84,59 @@ export function Comparison() {
                     className={cn(
                       'py-5 px-6 text-sm font-medium font-mono-accent uppercase tracking-wider',
                       index === 0 ? 'text-left text-ink' : 'text-center text-muted',
-                      index === 1 && 'text-terracotta font-bold'
+                      index === 1 &&
+                        'text-terracotta font-bold text-base border-t-2 border-terracotta/40'
                     )}
                   >
-                    {header}
+                    {index === 1 ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-terracotta animate-pulse" />
+                        {header}
+                      </span>
+                    ) : (
+                      header
+                    )}
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {COMPARISON_DATA.rows.map((row) => (
-                <tr
+              {COMPARISON_DATA.rows.map((row, rowIndex) => (
+                <motion.tr
                   key={row.feature}
                   className="border-b border-border/40 hover:bg-paper-alt/50 transition-colors"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  transition={{
+                    duration: 0.4,
+                    delay: rowIndex * 0.05,
+                    ease: [0.16, 1, 0.3, 1]
+                  }}
                 >
                   <td className="py-4 px-6 text-sm font-medium text-ink">{row.feature}</td>
-                  <td className="py-4 px-6 bg-paper-alt/20">
-                    <ComparisonCell value={row.memry} />
+                  <td className="py-4 px-6 column-glow">
+                    <ComparisonCell
+                      value={row.memry}
+                      isMemry
+                      competitorHasNo={hasCompetitorNo(row)}
+                      rowIndex={rowIndex}
+                    />
                   </td>
                   <td className="py-4 px-6">
-                    <ComparisonCell value={row.notion} />
+                    <ComparisonCell value={row.notion} rowIndex={rowIndex} />
                   </td>
                   <td className="py-4 px-6">
-                    <ComparisonCell value={row.obsidian} />
+                    <ComparisonCell value={row.obsidian} rowIndex={rowIndex} />
                   </td>
                   <td className="py-4 px-6">
-                    <ComparisonCell value={row.logseq} />
+                    <ComparisonCell value={row.logseq} rowIndex={rowIndex} />
                   </td>
-                </tr>
+                </motion.tr>
               ))}
             </tbody>
           </table>
-        </motion.div>
+        </div>
 
         <div className="text-center mt-8 space-y-3">
           <p className="text-sm text-muted font-mono-accent">
@@ -105,9 +150,11 @@ export function Comparison() {
               <X className="w-3 h-3 text-muted" /> No
             </span>
           </p>
-          <p className="text-xs text-muted/60 max-w-lg mx-auto leading-relaxed">
-            {COMPARISON_DATA.footnote}
-          </p>
+          {COMPARISON_DATA.footnote && (
+            <p className="text-xs text-muted/60 max-w-lg mx-auto leading-relaxed">
+              {COMPARISON_DATA.footnote}
+            </p>
+          )}
         </div>
       </Container>
     </section>

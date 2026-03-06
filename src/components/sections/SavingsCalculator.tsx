@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, useSpring, useTransform, AnimatePresence } from 'framer-motion'
 import { Check, ArrowRight } from 'lucide-react'
 import { Container } from '@/components/layout/Container'
@@ -67,11 +67,36 @@ function AnimatedNumber({ value }: { value: number }) {
   return <>{displayValue}</>
 }
 
+const toolItemVariants = {
+  hidden: { opacity: 0, x: 40, rotate: -3, scale: 0.9 },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    rotate: 0,
+    scale: 1,
+    transition: {
+      delay: i * 0.06,
+      duration: 0.4,
+      ease: [0.16, 1, 0.3, 1] as const,
+    },
+  }),
+  exit: { opacity: 0, x: -20, transition: { duration: 0.15 } },
+}
+
 export function SavingsCalculator() {
-  const [selectedId, setSelectedId] = useState(BUNDLES[1].id)
+  const [selectedId, setSelectedId] = useState<string>(BUNDLES[1].id)
   const selected = BUNDLES.find((b) => b.id === selectedId)!
   const monthlyCost = selected.tools.reduce((sum, t) => sum + t.price, 0)
   const annualSavings = monthlyCost * 12
+  const prevAnnualRef = useRef(annualSavings)
+  const [bounceKey, setBounceKey] = useState(0)
+
+  useEffect(() => {
+    if (prevAnnualRef.current !== annualSavings) {
+      prevAnnualRef.current = annualSavings
+      setBounceKey((k) => k + 1)
+    }
+  }, [annualSavings])
 
   return (
     <section className="py-24 bg-paper-alt/30">
@@ -140,25 +165,29 @@ export function SavingsCalculator() {
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={selectedId}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 10 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
                   >
                     <p className="text-xs font-medium text-muted uppercase tracking-wider mb-3">
                       Your current stack
                     </p>
                     <div className="space-y-2">
-                      {selected.tools.map((tool) => (
-                        <div
+                      {selected.tools.map((tool, i) => (
+                        <motion.div
                           key={tool.name}
+                          custom={i}
+                          variants={toolItemVariants}
+                          initial="hidden"
+                          animate="visible"
                           className="flex items-center justify-between py-2 px-3 rounded-lg bg-red-50/60 dark:bg-red-950/20"
                         >
                           <span className="text-sm text-ink">{tool.name}</span>
                           <span className="text-sm font-medium text-red-600 dark:text-red-400">
                             ${tool.price}/mo
                           </span>
-                        </div>
+                        </motion.div>
                       ))}
                       <div className="flex items-center justify-between pt-2 border-t border-border">
                         <span className="text-sm font-medium text-muted">Total</span>
@@ -171,21 +200,36 @@ export function SavingsCalculator() {
                 </AnimatePresence>
 
                 <div className="hidden md:flex flex-col items-center gap-2">
-                  <ArrowRight className="w-6 h-6 text-terracotta" />
+                  <motion.div
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                  >
+                    <ArrowRight className="w-6 h-6 text-terracotta" />
+                  </motion.div>
                 </div>
 
                 <div className="text-center md:text-left">
                   <p className="text-xs font-medium text-muted uppercase tracking-wider mb-3">
                     With Memry
                   </p>
-                  <div className="py-4 px-5 rounded-xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-200/50 dark:border-emerald-800/30">
+                  <motion.div
+                    className="py-4 px-5 rounded-xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-200/50 dark:border-emerald-800/30"
+                    animate={{
+                      boxShadow: [
+                        '0 0 20px -5px rgb(199 91 57 / 0.3)',
+                        '0 0 30px -5px rgb(199 91 57 / 0.6)',
+                        '0 0 20px -5px rgb(199 91 57 / 0.3)',
+                      ],
+                    }}
+                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                  >
                     <p className="text-3xl font-serif font-bold text-emerald-600 dark:text-emerald-400 mb-1">
                       $0
                     </p>
                     <p className="text-sm text-emerald-700/70 dark:text-emerald-300/70">
                       Free plan covers it all
                     </p>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </div>
@@ -202,9 +246,15 @@ export function SavingsCalculator() {
                   </div>
                   <div>
                     <span className="text-xs text-muted block">Yearly</span>
-                    <span className="text-2xl font-serif font-bold text-emerald-600">
+                    <motion.span
+                      key={bounceKey}
+                      className="text-2xl font-serif font-bold text-emerald-600 inline-block"
+                      initial={{ scale: 1 }}
+                      animate={{ scale: [1, 1.15, 1] }}
+                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    >
                       $<AnimatedNumber value={annualSavings} />
-                    </span>
+                    </motion.span>
                     <span className="text-sm text-muted"> saved</span>
                   </div>
                 </div>

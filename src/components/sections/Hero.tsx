@@ -1,113 +1,245 @@
-import { motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { motion, useInView } from 'framer-motion'
 import { Check } from 'lucide-react'
 import { Container } from '@/components/layout/Container'
 import { DemoShowcase } from '@/components/demo/DemoShowcase'
 import { WaitlistForm } from '@/components/shared/WaitlistForm'
 
-const BENEFITS = ['Free to start', 'Own your data', 'End-to-end encrypted']
+const BENEFITS = ['Open source', 'Own your data', 'End-to-end encrypted']
 
-const WAITLIST_COUNT = 580
+const INITIAL_WAITLIST_COUNT = 580
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1
-    }
-  }
+const HEADLINE_WORDS = ['Your', 'thoughts,']
+const HIGHLIGHT_WORDS = ['beautifully', 'organized.']
+
+const WORD_STAGGER = 0.08
+const HEADLINE_DURATION = (HEADLINE_WORDS.length + HIGHLIGHT_WORDS.length) * WORD_STAGGER + 0.5
+const UNDERLINE_DELAY = HEADLINE_DURATION
+const HIGHLIGHT_DELAY = UNDERLINE_DELAY + 0.6
+const SUBTITLE_DELAY = HIGHLIGHT_DELAY + 0.4
+const FORM_DELAY = SUBTITLE_DELAY + 0.3
+const BENEFITS_DELAY = FORM_DELAY + 0.2
+
+function useWaitlistCounter(initial: number): number {
+  const [count, setCount] = useState(initial)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount((c) => c + 1)
+    }, 30000)
+    return () => clearInterval(interval)
+  }, [])
+
+  return count
 }
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.16, 1, 0.3, 1] as const
-    }
-  }
+function AnimatedDigit({ digit }: { digit: string }) {
+  return (
+    <span className="inline-block overflow-hidden h-[1.2em] align-bottom">
+      <motion.span
+        key={digit}
+        className="inline-block"
+        initial={{ y: '100%' }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {digit}
+      </motion.span>
+    </span>
+  )
+}
+
+function WaitlistCounter({ count }: { count: number }) {
+  const digits = count.toLocaleString().split('')
+  return (
+    <span className="font-mono-accent">
+      {digits.map((d, i) => (
+        <AnimatedDigit key={`${i}-${d}`} digit={d} />
+      ))}
+      + people on the waitlist
+    </span>
+  )
 }
 
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
+  const waitlistCount = useWaitlistCounter(INITIAL_WAITLIST_COUNT)
+
   return (
-    <section id="hero" className="pt-24 pb-16 md:pt-32 md:pb-20 overflow-hidden">
+    <section
+      ref={sectionRef}
+      id="hero"
+      className="pt-24 pb-16 md:pt-32 md:pb-20 overflow-hidden"
+    >
       <Container>
-        <motion.div
-          className="max-w-4xl mx-auto text-center mb-10"
-          variants={containerVariants}
-          initial="hidden"
-          animate="show"
-        >
-          <motion.h1
-            variants={itemVariants}
-            className="font-serif text-5xl md:text-7xl font-normal text-ink mb-5 leading-[1.1] tracking-tight text-balance"
-          >
-            Your thoughts,{' '}
-            <span className="text-terracotta italic relative inline-block">
-              beautifully organized
-              <svg
-                className="absolute w-full h-3 -bottom-1 left-0 text-terracotta/30"
-                viewBox="0 0 100 10"
-                preserveAspectRatio="none"
-              >
-                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="2" fill="none" />
-              </svg>
-            </span>
-            .
-          </motion.h1>
+        <div className="flex flex-col md:flex-row md:items-center md:gap-12 lg:gap-16">
+          {/* Left column — text + CTA */}
+          <div className="md:w-[40%] shrink-0">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-normal text-ink leading-[1.08] tracking-tight">
+              {HEADLINE_WORDS.map((word, i) => (
+                <motion.span
+                  key={word}
+                  className="inline-block mr-[0.28em]"
+                  initial={{ opacity: 0, y: 30, filter: 'blur(4px)' }}
+                  animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
+                  transition={{
+                    duration: 0.5,
+                    delay: i * WORD_STAGGER,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                >
+                  {word}
+                </motion.span>
+              ))}
+              <br className="hidden md:block" />
+              <span className="relative inline-block">
+                {HIGHLIGHT_WORDS.map((word, i) => (
+                  <motion.span
+                    key={word}
+                    className="relative z-10 inline-block mr-[0.28em] text-terracotta italic"
+                    initial={{ opacity: 0, y: 30, filter: 'blur(4px)' }}
+                    animate={
+                      isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined
+                    }
+                    transition={{
+                      duration: 0.5,
+                      delay: (HEADLINE_WORDS.length + i) * WORD_STAGGER,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    {word}
+                  </motion.span>
+                ))}
 
-          <motion.p
-            variants={itemVariants}
-            className="text-xl md:text-2xl text-muted font-sans max-w-2xl mx-auto mb-7 leading-relaxed"
-          >
-            Notes, tasks, and journal — finally in one place.{' '}
-            <span className="text-ink/60">Private, fast, and yours forever.</span>
-          </motion.p>
+                {/* SVG underline draw */}
+                <svg
+                  className="absolute w-full h-3 -bottom-1 left-0 text-terracotta/40"
+                  viewBox="0 0 200 10"
+                  preserveAspectRatio="none"
+                >
+                  <motion.path
+                    d="M0 7 C 40 2, 60 12, 100 5 S 160 2, 200 7"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    fill="none"
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0 }}
+                    animate={isInView ? { pathLength: 1 } : undefined}
+                    transition={{
+                      duration: 0.7,
+                      delay: UNDERLINE_DELAY,
+                      ease: [0.65, 0, 0.35, 1],
+                    }}
+                  />
+                </svg>
 
-          <motion.div variants={itemVariants} className="max-w-md mx-auto mb-4" id="waitlist">
-            <WaitlistForm variant="hero" />
-          </motion.div>
+                {/* Highlighter sweep */}
+                <motion.span
+                  className="absolute inset-0 -inset-x-1 bg-terracotta/[0.08] rounded-sm -z-0"
+                  initial={{ scaleX: 0 }}
+                  animate={isInView ? { scaleX: 1 } : undefined}
+                  transition={{
+                    duration: 0.5,
+                    delay: HIGHLIGHT_DELAY,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  style={{ transformOrigin: 'left center' }}
+                />
+              </span>
+            </h1>
 
+            <motion.p
+              className="text-base md:text-lg text-muted font-sans max-w-md mt-5 mb-6 leading-relaxed"
+              initial={{ opacity: 0, y: 16 }}
+              animate={isInView ? { opacity: 1, y: 0 } : undefined}
+              transition={{
+                duration: 0.6,
+                delay: SUBTITLE_DELAY,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+            >
+              Notes, tasks, and journal — finally in one place.{' '}
+              <span className="text-ink/60">
+                <span className="font-semibold text-ink">Private and secure</span> by default,
+                with <span className="font-semibold text-ink">zero-knowledge sync</span> and an{' '}
+                <span className="font-semibold text-ink">open-source core</span>.
+              </span>
+            </motion.p>
+
+            <motion.div
+              className="max-w-md mb-4"
+              id="waitlist"
+              initial={{ opacity: 0, y: 24 }}
+              animate={isInView ? { opacity: 1, y: 0 } : undefined}
+              transition={{
+                duration: 0.6,
+                delay: FORM_DELAY,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+            >
+              <WaitlistForm variant="hero" />
+            </motion.div>
+
+            <motion.div
+              className="flex items-center gap-2 mb-6 text-sm text-muted"
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : undefined}
+              transition={{ duration: 0.5, delay: FORM_DELAY + 0.15 }}
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sage opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-sage" />
+              </span>
+              <WaitlistCounter count={waitlistCount} />
+            </motion.div>
+
+            <motion.div
+              className="flex flex-wrap items-center gap-5 md:gap-7 text-sm text-muted font-mono-accent uppercase tracking-wide"
+              initial="hidden"
+              animate={isInView ? 'show' : 'hidden'}
+              variants={{
+                hidden: {},
+                show: { transition: { staggerChildren: 0.08, delayChildren: BENEFITS_DELAY } },
+              }}
+            >
+              {BENEFITS.map((benefit) => (
+                <motion.div
+                  key={benefit}
+                  className="flex items-center gap-2"
+                  variants={{
+                    hidden: { opacity: 0, y: 10 },
+                    show: {
+                      opacity: 1,
+                      y: 0,
+                      transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+                    },
+                  }}
+                >
+                  <div className="rounded-full border border-terracotta/40 p-0.5">
+                    <Check className="w-3 h-3 text-terracotta" />
+                  </div>
+                  <span>{benefit}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Right column — DemoShowcase with tilt */}
           <motion.div
-            variants={itemVariants}
-            className="flex items-center justify-center gap-2 mb-6 text-sm text-muted"
+            className="mt-12 md:mt-0 md:w-[60%] relative z-10"
+            initial={{ opacity: 0, y: 40, scale: 0.97 }}
+            animate={isInView ? { opacity: 1, y: 0, scale: 1 } : undefined}
+            transition={{
+              duration: 1,
+              delay: 0.35,
+              ease: [0.16, 1, 0.3, 1],
+            }}
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sage opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-sage" />
-            </span>
-            <span className="font-mono-accent">
-              {WAITLIST_COUNT.toLocaleString()}+ people on the waitlist
-            </span>
+            <div className="absolute -inset-4 bg-terracotta/5 blur-3xl rounded-full -z-10" />
+            <DemoShowcase />
           </motion.div>
-
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-wrap items-center justify-center gap-6 md:gap-8 text-sm text-muted font-mono-accent uppercase tracking-wide"
-          >
-            {BENEFITS.map((benefit) => (
-              <div key={benefit} className="flex items-center gap-2">
-                <div className="rounded-full border border-terracotta/40 p-0.5">
-                  <Check className="w-3 h-3 text-terracotta" />
-                </div>
-                <span>{benefit}</span>
-              </div>
-            ))}
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-5xl mx-auto relative z-10"
-        >
-          <div className="absolute -inset-4 bg-terracotta/5 blur-3xl rounded-full -z-10" />
-          <DemoShowcase />
-        </motion.div>
+        </div>
       </Container>
     </section>
   )

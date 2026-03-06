@@ -1,4 +1,5 @@
 import { Hero } from '@/components/sections/Hero'
+import { Marquee } from '@/components/shared/Marquee'
 import { FeatureFlow } from '@/components/sections/FeatureFlow'
 import { SavingsCalculator } from '@/components/sections/SavingsCalculator'
 import { Features } from '@/components/sections/Features'
@@ -12,6 +13,7 @@ export function Home() {
   return (
     <>
       <Hero />
+      <Marquee />
       <FeatureFlow />
       <Features />
       <SavingsCalculator />
