@@ -6,14 +6,12 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { Home } from '@/pages/Home'
 import { FeaturesPage } from '@/pages/Features'
-import { PricingPage } from '@/pages/Pricing'
 import { UseCasesPage } from '@/pages/UseCases'
 import { SecurityPage } from '@/pages/Security'
 
 const ROUTE_MAP: Record<string, () => ReactNode> = {
   '/': () => <Home />,
   '/features': () => <FeaturesPage />,
-  '/pricing': () => <PricingPage />,
   '/use-cases': () => <UseCasesPage />,
   '/security': () => <SecurityPage />,
 }

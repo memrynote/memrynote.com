@@ -1,6 +1,6 @@
 export const BASE_URL = 'https://memrynote.com'
 export const SITE_NAME = 'Memry'
-export const TWITTER_HANDLE = '@memrynote'
+export const TWITTER_HANDLE = '@h4yfans'
 export const SOCIAL_IMAGE_PATH = '/og-image.png'
 export const SOCIAL_IMAGE_URL = `${BASE_URL}${SOCIAL_IMAGE_PATH}`
 export const SOCIAL_IMAGE_WIDTH = '1200'
@@ -27,13 +27,7 @@ export const PAGE_META: Record<string, PageMeta> = {
       'Inbox, notes, tasks & journal — four pillars of thought in one app. Wiki-links, Kanban, daily journal, AI clustering, all local-first.',
     path: '/features',
   },
-  pricing: {
-    title: 'Pricing — Memry',
-    description:
-      'Free forever for personal use. Pro plan at $5/mo for sync, collaboration, and publishing. No limits on notes or tasks.',
-    path: '/pricing',
-  },
-  useCases: {
+useCases: {
     title: 'Use Cases — Memry',
     description:
       'Built for knowledge workers, students, freelancers, and personal productivity. One app that adapts to how you think.',

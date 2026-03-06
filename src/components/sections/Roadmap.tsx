@@ -165,7 +165,7 @@ export function Roadmap() {
           className="mt-8 pt-8 border-t border-border/40 flex flex-wrap items-center justify-center gap-6 text-sm text-muted"
         >
           <a
-            href="https://github.com/memrynote/memry/issues"
+            href="https://github.com/memrynote/memrynote/issues"
             target="_blank"
             rel="noopener noreferrer"
             className="text-terracotta hover:underline font-medium"

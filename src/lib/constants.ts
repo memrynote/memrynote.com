@@ -1,25 +1,23 @@
 import { Inbox, BookOpen, FileText, CheckSquare, FolderOpen, Lock, Zap, Briefcase, GraduationCap, Laptop, Sparkles } from 'lucide-react'
 
-export const GITHUB_URL = 'https://github.com/memrynote/memry'
+export const GITHUB_URL = 'https://github.com/memrynote/memrynote'
 export const DISCORD_URL = 'https://discord.gg/memry'
 export const TWITTER_DEV_URL = 'https://x.com/h4yfans'
 
 export const NAV_LINKS = [
-  { label: 'Features', href: '#features' },
   { label: 'Use Cases', href: '/use-cases' },
+  { label: 'Roadmap', href: '#roadmap' },
   { label: 'Security', href: '/security' }
 ] as const
 
 export const FOOTER_LINKS = {
   product: [
     { label: 'Features', href: '#features' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'Security', href: '/security' },
-    { label: 'Download', href: '#waitlist' }
+    { label: 'Security', href: '/security' }
   ],
   social: [
-    { label: 'Twitter', href: 'https://twitter.com/memrynote' },
-    { label: 'GitHub', href: 'https://github.com/memrynote/memry' }
+    { label: 'Twitter', href: 'https://x.com/h4yfans' },
+    { label: 'GitHub', href: 'https://github.com/memrynote/memrynote' }
   ]
 } as const
 

@@ -102,7 +102,7 @@ const SECURITY_SECTIONS: SecuritySection[] = [
     description:
       'Memry will be fully open source. Audit the code, verify our claims, build on top of it.',
     details: [
-      'Repository coming soon at github.com/memrynote/memry',
+      'Repository coming soon at github.com/memrynote/memrynote',
       'AGPL-3.0 license',
       'Reproducible builds planned',
       'Security audits welcome',

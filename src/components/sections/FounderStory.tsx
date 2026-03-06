@@ -72,7 +72,7 @@ export function FounderStory() {
                     Follow @h4yfans for updates →
                   </a>
                   <a
-                    href="https://github.com/memrynote/memry"
+                    href="https://github.com/memrynote/memrynote"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-muted hover:text-ink transition-colors"
