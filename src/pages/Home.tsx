@@ -13,6 +13,7 @@ export function Home() {
       <Features />
       <SecurityShowcase />
       <FounderStory />
+      <Roadmap />
       <CleanNeutralFAQ />
       <FinalCTA />
     </>

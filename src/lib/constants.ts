@@ -171,7 +171,7 @@ export const FAQ_ITEMS = [
   {
     question: 'Can I sync between devices?',
     answer:
-      "Absolutely! Since your vault is just a folder, you can use any sync service you prefer — iCloud, Dropbox, Google Drive, Syncthing, or even Git. We don't lock you into our own sync solution."
+      "Absolutely! Since your vault is just a folder, you can use any sync service you prefer — Memry Sync, iCloud, Dropbox, Google Drive, Syncthing, or even Git. We don't lock you into our own sync solution."
   },
   {
     question: 'Is there a mobile app?',
@@ -186,7 +186,7 @@ export const FAQ_ITEMS = [
   {
     question: 'Can I import from other apps?',
     answer:
-      'Yes! We support importing from Obsidian (direct vault), Notion (export), Roam Research, and plain Markdown folders. Your existing knowledge base can move with you.'
+      'Yes! We will support importing from Obsidian (direct vault), Notion (export), Roam Research, and plain Markdown folders. Your existing knowledge base can move with you.'
   },
   {
     question: 'When will Memry launch?',
@@ -212,13 +212,15 @@ export const ROADMAP_DATA = {
         'Daily journal with templates',
         'Quick capture inbox',
         'File attachments & version history',
-        '8 property types for metadata'
+        '8 property types for metadata',
+        'Database view'
       ]
     },
     {
       status: 'in-progress' as const,
       title: 'Polish & AI',
       items: [
+        'Canvas graph',
         'AI-powered inbox clustering (local model)',
         'Smart task suggestions',
         'Performance optimization',
@@ -234,7 +236,7 @@ export const ROADMAP_DATA = {
         'Graph view for note connections',
         'Plugin system & API',
         'Multi-vault support',
-        'Import tools (Notion, Roam, Bear)',
+        'Import tools',
         'Templates marketplace'
       ]
     }
