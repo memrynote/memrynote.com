@@ -73,9 +73,8 @@ export function Hero() {
       className="pt-24 pb-16 md:pt-32 md:pb-20 overflow-hidden"
     >
       <Container>
-        <div className="flex flex-col md:flex-row md:items-center md:gap-12 lg:gap-16">
-          {/* Left column — text + CTA */}
-          <div className="md:w-[40%] shrink-0">
+        <div className="flex flex-col items-center">
+          <div className="max-w-2xl text-center">
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-normal text-ink leading-[1.08] tracking-tight">
               {HEADLINE_WORDS.map((word, i) => (
                 <motion.span
@@ -150,7 +149,7 @@ export function Hero() {
             </h1>
 
             <motion.p
-              className="text-base md:text-lg text-muted font-sans max-w-md mt-5 mb-6 leading-relaxed"
+              className="text-base md:text-lg text-muted font-sans max-w-lg mx-auto mt-5 mb-6 leading-relaxed"
               initial={{ opacity: 0, y: 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : undefined}
               transition={{
@@ -159,16 +158,11 @@ export function Hero() {
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
-              Notes, tasks, and journal — finally in one place.{' '}
-              <span className="text-ink/60">
-                <span className="font-semibold text-ink">Private and secure</span> by default,
-                with <span className="font-semibold text-ink">zero-knowledge sync</span> and an{' '}
-                <span className="font-semibold text-ink">open-source core</span>.
-              </span>
+              One app for notes, tasks & journal — <span className="font-semibold text-ink">private by design, open at heart.</span>
             </motion.p>
 
             <motion.div
-              className="max-w-md mb-4"
+              className="max-w-md mx-auto mb-4"
               id="waitlist"
               initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : undefined}
@@ -182,7 +176,7 @@ export function Hero() {
             </motion.div>
 
             <motion.div
-              className="flex items-center gap-2 mb-6 text-sm text-muted"
+              className="flex items-center justify-center gap-2 mb-6 text-sm text-muted"
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : undefined}
               transition={{ duration: 0.5, delay: FORM_DELAY + 0.15 }}
@@ -195,7 +189,7 @@ export function Hero() {
             </motion.div>
 
             <motion.div
-              className="flex flex-wrap items-center gap-5 md:gap-7 text-sm text-muted font-mono-accent uppercase tracking-wide"
+              className="flex flex-wrap items-center justify-center gap-5 md:gap-7 text-sm text-muted font-mono-accent uppercase tracking-wide"
               initial="hidden"
               animate={isInView ? 'show' : 'hidden'}
               variants={{
@@ -225,9 +219,8 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Right column — DemoShowcase with tilt */}
           <motion.div
-            className="mt-12 md:mt-0 md:w-[60%] relative z-10"
+            className="mt-12 w-full max-w-4xl relative z-10"
             initial={{ opacity: 0, y: 40, scale: 0.97 }}
             animate={isInView ? { opacity: 1, y: 0, scale: 1 } : undefined}
             transition={{

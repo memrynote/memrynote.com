@@ -30,7 +30,7 @@ export function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6">
       <Container size="full">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between rounded-[28px] border border-white/70 bg-paper/75 px-4 py-3 shadow-[var(--shadow-float)] backdrop-blur-xl sm:px-6">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between rounded-[28px] border border-white/70 bg-paper/60 px-4 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.6)] backdrop-blur-2xl backdrop-saturate-150 sm:px-6">
           <Link to="/" className="flex items-center gap-3 group">
             <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-terracotta/20 bg-white/80 shadow-sm">
               <img src="/favicon.svg" alt="" className="w-6 h-6" />
