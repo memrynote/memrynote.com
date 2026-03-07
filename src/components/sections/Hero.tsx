@@ -7,25 +7,9 @@ import { WaitlistForm } from '@/components/shared/WaitlistForm'
 
 const BENEFITS = ['Open source', 'Own your data', 'End-to-end encrypted']
 
-const WAITLIST_COUNT = '450+'
-
-const HEADLINE_WORDS = ['Your', 'thoughts,']
-const HIGHLIGHT_WORDS = ['beautifully', 'organized.']
-
-const WORD_STAGGER = 0.06
-const HEADLINE_DURATION = (HEADLINE_WORDS.length + HIGHLIGHT_WORDS.length) * WORD_STAGGER + 0.35
-const UNDERLINE_DELAY = HEADLINE_DURATION
-const SUBTITLE_DELAY = UNDERLINE_DELAY + 0.25
-const FORM_DELAY = SUBTITLE_DELAY + 0.15
-const BENEFITS_DELAY = FORM_DELAY + 0.1
-
-function WaitlistCounter() {
-  return (
-    <span className="font-mono-accent">
-      {WAITLIST_COUNT} people on the waitlist
-    </span>
-  )
-}
+const SUBTITLE_DELAY = 0.5
+const FORM_DELAY = 0.7
+const BENEFITS_DELAY = 0.85
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -41,67 +25,38 @@ export function Hero() {
       <Container>
         <div className="flex flex-col items-center">
           <div className="text-center">
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-normal text-ink leading-[1.08] tracking-tight md:whitespace-nowrap">
-              {HEADLINE_WORDS.map((word, i) => (
-                <motion.span
-                  key={word}
-                  className="inline-block mr-[0.28em]"
-                  initial={{ opacity: 0, y: 30, filter: 'blur(4px)' }}
-                  animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined}
-                  transition={{
-                    duration: 0.5,
-                    delay: i * WORD_STAGGER,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                >
-                  {word}
-                </motion.span>
-              ))}
-              {' '}
-              <span className="relative inline-block">
-                {HIGHLIGHT_WORDS.map((word, i) => (
-                  <motion.span
-                    key={word}
-                    className="relative z-10 inline-block mr-[0.28em] text-terracotta italic"
-                    initial={{ opacity: 0, y: 30, filter: 'blur(4px)' }}
-                    animate={
-                      isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined
-                    }
-                    transition={{
-                      duration: 0.5,
-                      delay: (HEADLINE_WORDS.length + i) * WORD_STAGGER,
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : undefined}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-normal text-ink leading-[1.08] tracking-tight md:whitespace-nowrap">
+                Your thoughts,{' '}
+                <span className="relative inline-block">
+                  <span className="relative z-10 text-terracotta italic">beautifully organized.</span>
+                  <svg
+                    className="absolute w-full h-3 -bottom-1 left-0 text-terracotta/40"
+                    viewBox="0 0 200 10"
+                    preserveAspectRatio="none"
                   >
-                    {word}
-                  </motion.span>
-                ))}
-
-                {/* SVG underline draw */}
-                <svg
-                  className="absolute w-full h-3 -bottom-1 left-0 text-terracotta/40"
-                  viewBox="0 0 200 10"
-                  preserveAspectRatio="none"
-                >
-                  <motion.path
-                    d="M0 7 C 40 2, 60 12, 100 5 S 160 2, 200 7"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    fill="none"
-                    strokeLinecap="round"
-                    initial={{ pathLength: 0 }}
-                    animate={isInView ? { pathLength: 1 } : undefined}
-                    transition={{
-                      duration: 0.7,
-                      delay: UNDERLINE_DELAY,
-                      ease: [0.65, 0, 0.35, 1],
-                    }}
-                  />
-                </svg>
-
-
-              </span>
-            </h1>
+                    <motion.path
+                      d="M0 7 C 40 2, 60 12, 100 5 S 160 2, 200 7"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      fill="none"
+                      strokeLinecap="round"
+                      initial={{ pathLength: 0 }}
+                      animate={isInView ? { pathLength: 1 } : undefined}
+                      transition={{
+                        duration: 0.7,
+                        delay: 0.4,
+                        ease: [0.65, 0, 0.35, 1],
+                      }}
+                    />
+                  </svg>
+                </span>
+              </h1>
+            </motion.div>
 
             <motion.p
               className="text-base md:text-lg text-muted font-sans max-w-lg mx-auto mt-5 mb-6 leading-relaxed"
@@ -140,7 +95,7 @@ export function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sage opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-sage" />
               </span>
-              <WaitlistCounter />
+              <span className="font-mono-accent">Accepting early signups</span>
             </motion.div>
 
             <motion.div
