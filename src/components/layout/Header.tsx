@@ -44,9 +44,6 @@ export function Header() {
                   Preview
                 </span>
               </span>
-              <span className="section-kicker hidden text-[10px] text-muted/70 sm:block">
-                A Private Memory Atelier
-              </span>
             </div>
           </Link>
 
@@ -74,13 +71,6 @@ export function Header() {
           </div>
 
           <div className="hidden md:flex items-center gap-3">
-            <div className="hidden xl:flex items-center gap-3 rounded-full border border-border/70 bg-white/55 px-4 py-2">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sage opacity-75" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-sage" />
-              </span>
-              <span className="section-kicker text-[10px] text-muted">Early access late Q3 2026</span>
-            </div>
             <a
               href={GITHUB_URL}
               target="_blank"
@@ -124,7 +114,6 @@ export function Header() {
           >
             <Container size="full">
               <div className="mx-auto flex max-w-6xl flex-col gap-4 rounded-[28px] border border-white/70 bg-paper/90 p-5 shadow-[var(--shadow-float)] backdrop-blur-xl">
-                <div className="section-kicker text-[10px] text-muted">A private room for notes, tasks, and memory</div>
                 {NAV_LINKS.map((link) =>
                   link.href.startsWith('/') ? (
                     <Link
