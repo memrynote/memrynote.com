@@ -40,7 +40,7 @@ export function CleanNeutralFAQ() {
                 value={`faq-${i}`}
                 className="border-b border-border/60 last:border-0 rounded-none px-0 bg-transparent data-[state=open]:bg-transparent"
               >
-                <AccordionTrigger className="text-left text-ink text-lg hover:text-terracotta hover:no-underline py-5 font-sans font-medium">
+                <AccordionTrigger className="text-left text-ink text-lg hover:text-terracotta hover:no-underline py-5 font-serif">
                   {item.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-muted leading-relaxed pb-5 text-[17px] font-sans max-w-[90%]">
