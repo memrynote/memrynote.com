@@ -72,7 +72,7 @@ export function Features() {
     <section id="features" className="py-24">
       <Container>
         <SectionHeading
-          title="Four pillars of thought"
+          title="What's inside"
           subtitle="Everything you need to capture, organize, and act on your ideas. Nothing you don't."
         />
 
@@ -81,10 +81,10 @@ export function Features() {
             <Fragment key={feature.id}>
               {index > 0 && <FlowConnector index={index - 1} />}
               <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.5 }}
               className={cn(
                 'grid md:grid-cols-2 gap-16 items-center',
                 index % 2 === 1 && 'md:grid-flow-dense'
