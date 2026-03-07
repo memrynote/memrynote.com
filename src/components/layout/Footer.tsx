@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { Container } from './Container'
-import { FOOTER_LINKS } from '@/lib/constants'
+import { FOOTER_LINKS, TWITTER_DEV_URL } from '@/lib/constants'
 
 function footerHref(href: string, pathname: string): string {
   if (href.startsWith('#') && pathname !== '/') return '/' + href
@@ -66,9 +66,9 @@ export function Footer() {
             © {currentYear} Memry. All rights reserved.
           </p>
           <p className="text-sm text-muted/60 font-mono-accent">
-            Made with care at{' '}
-            <a href="https://memrynote.com" className="text-terracotta hover:underline">
-              memrynote.com
+            An indie project by{' '}
+            <a href={TWITTER_DEV_URL} target="_blank" rel="noopener noreferrer" className="text-terracotta hover:underline">
+              @h4yfans
             </a>
           </p>
         </div>
