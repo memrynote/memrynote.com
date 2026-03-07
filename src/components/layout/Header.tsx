@@ -36,8 +36,13 @@ export function Header() {
               <img src="/favicon.svg" alt="" className="w-5 h-5" />
             </span>
             <div className="leading-none">
-              <span className="block font-serif text-2xl font-medium tracking-tight text-ink transition-colors group-hover:text-terracotta">
-                Memry.
+              <span className="flex items-center gap-2">
+                <span className="block font-serif text-2xl font-medium tracking-tight text-ink transition-colors group-hover:text-terracotta">
+                  Memry.
+                </span>
+                <span className="rounded-full bg-terracotta/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-widest text-terracotta">
+                  Preview
+                </span>
               </span>
               <span className="section-kicker hidden text-[10px] text-muted/70 sm:block">
                 A Private Memory Atelier
@@ -74,7 +79,7 @@ export function Header() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sage opacity-75" />
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-sage" />
               </span>
-              <span className="section-kicker text-[10px] text-muted">Early access Q2 2026</span>
+              <span className="section-kicker text-[10px] text-muted">Early access late Q3 2026</span>
             </div>
             <a
               href={GITHUB_URL}

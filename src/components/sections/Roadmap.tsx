@@ -152,7 +152,7 @@ export function Roadmap() {
               Mobile apps &mdash; iOS & Android targeting late 2026
             </p>
             <p className="text-muted text-sm mt-1">
-              Until then, your vault syncs via any cloud folder you already use (iCloud, Dropbox, Google Drive, Syncthing).
+              Memry Sync is built in. You can also use any cloud folder you prefer (iCloud, Dropbox, Google Drive, Syncthing).
             </p>
           </div>
         </motion.div>

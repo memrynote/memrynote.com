@@ -189,13 +189,13 @@ export const FAQ_ITEMS = [
   {
     question: 'When will Memry launch?',
     answer:
-      "Early access opens Q2 2026, with a full public release targeting mid-2026. Waitlist members get first access and can help shape the product before launch."
+      "Early access opens late Q3 2026, with a full public release targeting late 2026. Waitlist members get first access and can help shape the product before launch."
   }
 ] as const
 
 export const ROADMAP_DATA = {
-  releaseDate: 'Mid 2026',
-  earlyAccess: 'Early access opens Q2 2026',
+  releaseDate: 'Late 2026',
+  earlyAccess: 'Early access opens late Q3 2026',
   phases: [
     {
       status: 'done' as const,
@@ -232,7 +232,7 @@ export const ROADMAP_DATA = {
       items: [
         'Mobile app — iOS & Android (targeting late 2026)',
         'Graph view for note connections',
-        'Plugin system & API',
+        'CLI, MCP & API',
         'Multi-vault support',
         'Import tools',
         'Templates marketplace'
