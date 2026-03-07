@@ -75,16 +75,16 @@ export function Roadmap() {
           />
 
           <div className="space-y-14">
-            {ROADMAP_DATA.phases.map((phase, i) => {
+            {ROADMAP_DATA.phases.map((phase) => {
               const config = STATUS_CONFIG[phase.status]
 
               return (
                 <motion.div
                   key={phase.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
                   viewport={{ once: true, margin: '-50px' }}
-                  transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.5 }}
                   className="flex gap-6 md:gap-8"
                 >
                   <div className="shrink-0 pt-1">
@@ -114,20 +114,16 @@ export function Roadmap() {
                     </div>
 
                     <div className="grid sm:grid-cols-2 gap-x-8 gap-y-1.5">
-                      {phase.items.map((item, j) => (
-                        <motion.div
+                      {phase.items.map((item) => (
+                        <div
                           key={item}
-                          initial={{ opacity: 0, x: -6 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.3, delay: i * 0.05 + j * 0.03 }}
                           className={`flex items-center gap-2.5 py-1 text-sm ${
                             phase.status === 'planned' ? 'text-muted' : 'text-ink/80'
                           }`}
                         >
                           <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${config.dot}`} />
                           {item}
-                        </motion.div>
+                        </div>
                       ))}
                     </div>
                   </div>

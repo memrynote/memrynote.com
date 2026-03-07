@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { Check, X, Minus } from 'lucide-react'
 import { Container } from '@/components/layout/Container'
 import { SectionHeading } from '@/components/shared/SectionHeading'
@@ -7,38 +6,17 @@ import { cn } from '@/lib/utils'
 
 function ComparisonCell({
   value,
-  isMemry,
-  competitorHasNo,
-  rowIndex
+  isMemry
 }: {
   value: boolean | 'partial'
   isMemry?: boolean
-  competitorHasNo?: boolean
-  rowIndex: number
 }) {
   if (value === true) {
-    const shouldBounce = isMemry && competitorHasNo
     return (
       <div className="flex justify-center">
-        <motion.div
-          className="w-6 h-6 rounded-full bg-sage/10 flex items-center justify-center"
-          {...(shouldBounce
-            ? {
-                initial: { scale: 1 },
-                whileInView: { scale: [1, 1.3, 1] },
-                viewport: { once: true },
-                transition: {
-                  delay: 0.15 + rowIndex * 0.05,
-                  duration: 0.3,
-                  type: 'spring',
-                  stiffness: 400,
-                  damping: 15
-                }
-              }
-            : {})}
-        >
+        <div className="w-6 h-6 rounded-full bg-sage/10 flex items-center justify-center">
           <Check className="w-4 h-4 text-sage" />
-        </motion.div>
+        </div>
       </div>
     )
   }
@@ -63,14 +41,11 @@ function ComparisonCell({
 }
 
 export function Comparison() {
-  const hasCompetitorNo = (row: (typeof COMPARISON_DATA.rows)[number]): boolean =>
-    !row.notion || !row.obsidian || !row.logseq
-
   return (
     <section className="py-24 zone-transition">
       <Container size="md">
         <SectionHeading
-          title="How we compare"
+          title="How Memry compares"
           subtitle="We built Memry to be the PKM we wished existed."
         />
 
@@ -101,38 +76,25 @@ export function Comparison() {
               </tr>
             </thead>
             <tbody>
-              {COMPARISON_DATA.rows.map((row, rowIndex) => (
-                <motion.tr
+              {COMPARISON_DATA.rows.map((row) => (
+                <tr
                   key={row.feature}
                   className="border-b border-border/40 hover:bg-paper-alt/50 transition-colors"
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-30px' }}
-                  transition={{
-                    duration: 0.4,
-                    delay: rowIndex * 0.05,
-                    ease: [0.16, 1, 0.3, 1]
-                  }}
                 >
                   <td className="py-4 px-6 text-sm font-medium text-ink">{row.feature}</td>
                   <td className="py-4 px-6 column-glow">
-                    <ComparisonCell
-                      value={row.memry}
-                      isMemry
-                      competitorHasNo={hasCompetitorNo(row)}
-                      rowIndex={rowIndex}
-                    />
+                    <ComparisonCell value={row.memry} isMemry />
                   </td>
                   <td className="py-4 px-6">
-                    <ComparisonCell value={row.notion} rowIndex={rowIndex} />
+                    <ComparisonCell value={row.notion} />
                   </td>
                   <td className="py-4 px-6">
-                    <ComparisonCell value={row.obsidian} rowIndex={rowIndex} />
+                    <ComparisonCell value={row.obsidian} />
                   </td>
                   <td className="py-4 px-6">
-                    <ComparisonCell value={row.logseq} rowIndex={rowIndex} />
+                    <ComparisonCell value={row.logseq} />
                   </td>
-                </motion.tr>
+                </tr>
               ))}
             </tbody>
           </table>
