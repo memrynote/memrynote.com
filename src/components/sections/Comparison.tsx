@@ -4,13 +4,7 @@ import { SectionHeading } from '@/components/shared/SectionHeading'
 import { COMPARISON_DATA } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
-function ComparisonCell({
-  value,
-  isMemry
-}: {
-  value: boolean | 'partial'
-  isMemry?: boolean
-}) {
+function ComparisonCell({ value }: { value: boolean | 'partial' }) {
   if (value === true) {
     return (
       <div className="flex justify-center">
@@ -83,7 +77,7 @@ export function Comparison() {
                 >
                   <td className="py-4 px-6 text-sm font-medium text-ink">{row.feature}</td>
                   <td className="py-4 px-6 column-glow">
-                    <ComparisonCell value={row.memry} isMemry />
+                    <ComparisonCell value={row.memry} />
                   </td>
                   <td className="py-4 px-6">
                     <ComparisonCell value={row.notion} />
