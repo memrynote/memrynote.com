@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Container } from '@/components/layout/Container'
-import { TWITTER_DEV_URL } from '@/lib/constants'
+import { GITHUB_URL, TWITTER_DEV_URL } from '@/lib/constants'
 
 export function FounderStory() {
   return (
@@ -72,7 +72,7 @@ export function FounderStory() {
                     Follow @h4yfans for updates →
                   </a>
                   <a
-                    href="https://github.com/memrynote/memrynote"
+                    href={GITHUB_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-muted hover:text-ink transition-colors"

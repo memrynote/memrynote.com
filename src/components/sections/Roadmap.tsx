@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
 import { Container } from '@/components/layout/Container'
-import { ROADMAP_DATA, TWITTER_DEV_URL } from '@/lib/constants'
+import { GITHUB_URL, ROADMAP_DATA, TWITTER_DEV_URL } from '@/lib/constants'
 
 const STATUS_CONFIG = {
   done: {
@@ -161,7 +161,7 @@ export function Roadmap() {
           className="mt-8 pt-8 border-t border-border/40 flex flex-wrap items-center justify-center gap-6 text-sm text-muted"
         >
           <a
-            href="https://github.com/memrynote/memrynote/issues"
+            href={`${GITHUB_URL}/issues`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-terracotta hover:underline font-medium"
