@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, useSpring, useTransform, AnimatePresence } from 'framer-motion'
 import { Check, ArrowRight } from 'lucide-react'
 import { Container } from '@/components/layout/Container'
@@ -88,15 +88,7 @@ export function SavingsCalculator() {
   const selected = BUNDLES.find((b) => b.id === selectedId)!
   const monthlyCost = selected.tools.reduce((sum, t) => sum + t.price, 0)
   const annualSavings = monthlyCost * 12
-  const prevAnnualRef = useRef(annualSavings)
-  const [bounceKey, setBounceKey] = useState(0)
-
-  useEffect(() => {
-    if (prevAnnualRef.current !== annualSavings) {
-      prevAnnualRef.current = annualSavings
-      setBounceKey((k) => k + 1)
-    }
-  }, [annualSavings])
+  const bounceKey = selectedId
 
   return (
     <section className="py-24 bg-paper-alt/30">

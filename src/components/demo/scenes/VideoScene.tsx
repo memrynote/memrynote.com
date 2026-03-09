@@ -26,7 +26,7 @@ export function VideoScene({ src, playing, onDurationDetected }: VideoSceneProps
     if (playing) {
       video.play().catch(() => {})
     }
-  }, [src])
+  }, [src, playing])
 
   const handleLoadedMetadata = () => {
     const video = videoRef.current

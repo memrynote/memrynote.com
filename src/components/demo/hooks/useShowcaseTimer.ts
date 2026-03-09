@@ -15,8 +15,15 @@ export function useShowcaseTimer(
 
   const duration = durationOverride ?? CLIPS[activeIndex].duration
 
-  const tick = useCallback(
-    (now: number) => {
+  useEffect(() => {
+    if (paused) {
+      cancelAnimationFrame(rafRef.current)
+      pausedAtRef.current = progress.get()
+      startTimeRef.current = null
+      return
+    }
+
+    const tick = (now: number) => {
       if (startTimeRef.current === null) {
         startTimeRef.current = now - pausedAtRef.current * duration
       }
@@ -33,21 +40,11 @@ export function useShowcaseTimer(
       } else {
         rafRef.current = requestAnimationFrame(tick)
       }
-    },
-    [duration, progress, setActiveIndex]
-  )
-
-  useEffect(() => {
-    if (paused) {
-      cancelAnimationFrame(rafRef.current)
-      pausedAtRef.current = progress.get()
-      startTimeRef.current = null
-      return
     }
 
     rafRef.current = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(rafRef.current)
-  }, [paused, tick, progress])
+  }, [paused, duration, progress, setActiveIndex])
 
   const goTo = useCallback(
     (index: number) => {

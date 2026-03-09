@@ -25,11 +25,5 @@ export function useElapsed(playing: boolean, duration: number) {
     return () => cancelAnimationFrame(rafRef.current)
   }, [playing, duration, elapsed])
 
-  useEffect(() => {
-    setElapsed(0)
-    pausedAtRef.current = 0
-    startRef.current = null
-  }, [])
-
   return elapsed
 }
