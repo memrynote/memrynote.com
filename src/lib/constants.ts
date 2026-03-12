@@ -1,4 +1,4 @@
-import { Inbox, BookOpen, FileText, CheckSquare, FolderOpen, Lock, Zap, Briefcase, GraduationCap, Laptop, Sparkles } from 'lucide-react'
+import { Inbox, BookOpen, FileText, CheckSquare, Calendar, FolderOpen, Lock, Zap, Briefcase, GraduationCap, Laptop, Sparkles } from 'lucide-react'
 
 export const GITHUB_URL = 'https://github.com/memrynote/memry'
 export const DISCORD_URL = 'https://discord.gg/memry'
@@ -269,5 +269,63 @@ export const USE_CASES = [
     title: 'Personal Productivity',
     painQuote: 'Life admin is overwhelming and nothing has a home.',
     features: ['Quick capture Inbox', 'Reflective daily Journal', 'Subtasks & recurring habits', 'Private & encrypted']
+  }
+] as const
+export const FLOW_STEPS = [
+  {
+    id: 'inbox',
+    icon: Inbox,
+    title: 'Inbox',
+    tagline: 'Capture first, organize later.',
+    competitorLabel: 'Only in',
+    competitors: [
+      { name: 'MemryNote', logo: '/competitors/memry.png' },
+    ]
+  },
+  {
+    id: 'journal',
+    icon: BookOpen,
+    title: 'Journal',
+    tagline: 'Reflect. Daily.',
+    competitors: [
+      { name: 'Google Keep', logo: '/competitors/google-keep.png' },
+      { name: 'Apple Notes', logo: '/competitors/apple-notes.png' },
+      { name: 'OneNote', logo: '/competitors/onenote-clipper.png' },
+      { name: 'Evernote Clipper', logo: '/competitors/evernote-clipper.png' }
+    ]
+  },
+  {
+    id: 'notes',
+    icon: FileText,
+    title: 'Notes',
+    tagline: 'Your second brain, in Markdown.',
+    competitors: [
+      { name: 'Notion', logo: '/competitors/notion.png' },
+      { name: 'Bear', logo: '/competitors/bear.png' },
+      { name: 'Roam', logo: '/competitors/roam.png' },
+      { name: 'Evernote', logo: '/competitors/evernote.png' }
+    ]
+  },
+  {
+    id: 'tasks',
+    icon: CheckSquare,
+    title: 'Tasks',
+    tagline: 'From thought to done.',
+    competitors: [
+      { name: 'Todoist', logo: '/competitors/todoist.png' },
+      { name: 'Things', logo: '/competitors/things.png' },
+      { name: 'Google Tasks', logo: '/competitors/google-tasks.png' }
+    ]
+  },
+  {
+    id: 'calendar',
+    icon: Calendar,
+    title: 'Calendar',
+    tagline: 'Schedule it all.',
+    competitors: [
+      { name: 'Google Cal', logo: '/competitors/google-cal.png' },
+      { name: 'Outlook', logo: '/competitors/outlook.png' },
+      { name: 'Apple Cal', logo: '/competitors/apple-cal.png' }
+    ]
   }
 ] as const

@@ -1,5 +1,6 @@
 import { PageHead } from '@/components/shared/PageHead'
 import { Hero } from '@/components/sections/Hero'
+import { FlowShowcase } from '@/components/sections/FlowShowcase'
 import { Features } from '@/components/sections/Features'
 import { Comparison } from '@/components/sections/Comparison'
 import { SecurityShowcase } from '@/components/sections/SecurityShowcase'
@@ -13,6 +14,7 @@ export function Home() {
     <>
       <PageHead page="home" jsonLd />
       <Hero />
+      <FlowShowcase />
       <Features />
       <Comparison />
       <SecurityShowcase />

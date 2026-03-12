@@ -38,7 +38,7 @@ export function DemoTabs({ activeIndex, progress, onTabClick }: DemoTabsProps) {
           <button
             key={clip.id}
             onClick={() => onTabClick(index)}
-            className="relative flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-sm font-mono-accent transition-colors cursor-pointer"
+            className="relative flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-sm font-mono-accent transition-colors cursor-pointer hover:bg-terracotta/[0.06]"
           >
             {isActive && <TabFill progress={progress} />}
             {isCompleted && (
