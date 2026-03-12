@@ -1,4 +1,4 @@
-import { Inbox, BookOpen, FileText, CheckSquare, Calendar, FolderOpen, Lock, Zap, Briefcase, GraduationCap, Laptop, Sparkles } from 'lucide-react'
+import { Inbox, BookOpen, FileText, CheckSquare, Calendar, FolderOpen, Lock, Zap, Briefcase, GraduationCap, Laptop, Sparkles, Brain, PenLine, Rocket } from 'lucide-react'
 
 export const GITHUB_URL = 'https://github.com/memrynote/memry'
 export const DISCORD_URL = 'https://discord.gg/memry'
@@ -247,30 +247,66 @@ export const USE_CASES = [
     icon: Laptop,
     title: 'Knowledge Workers',
     painQuote: 'My notes are in one app, tasks in another, and nothing connects.',
-    features: ['AI-powered inbox clustering', '[[Wiki links]] & backlinks', 'Full-text search in ms', 'Markdown-native']
+    description: 'Stop context-switching between Notion, Todoist, and a journal app. Memry connects your research, tasks, and daily reflections in one local-first workspace — with wiki-links that actually build a knowledge graph.',
+    features: ['AI-powered inbox clustering', '[[Wiki links]] & backlinks', 'Full-text search in ms', 'Markdown-native'],
+    workflow: ['Capture ideas in Inbox', 'Process into linked Notes', 'Track action items as Tasks', 'Reflect in daily Journal']
   },
   {
     id: 'students',
     icon: GraduationCap,
     title: 'Students',
     painQuote: 'Lecture notes everywhere, deadlines slipping through the cracks.',
-    features: ['Daily journal for study logs', 'Notes organized by course', 'Recurring task deadlines', 'Calendar & Kanban views']
+    description: 'One workspace for lecture notes, assignments, and study schedules. Link concepts across courses, track deadlines in Calendar view, and build a personal knowledge base that grows with you.',
+    features: ['Daily journal for study logs', 'Notes organized by course', 'Recurring task deadlines', 'Calendar & Kanban views'],
+    workflow: ['Journal daily study sessions', 'Link notes across courses', 'Track assignments in Kanban', 'Review with full-text search']
   },
   {
     id: 'freelancers',
     icon: Briefcase,
     title: 'Freelancers',
     painQuote: 'Client context is spread across five different apps.',
-    features: ['Project-based task views', 'Kanban for deliverables', 'Daily planning in Journal', '8 property types for metadata']
+    description: 'Manage every client in one vault — meeting notes, deliverables, invoices, and project timelines. Switch between Kanban for active work and Calendar for deadlines without ever leaving your workspace.',
+    features: ['Project-based task views', 'Kanban for deliverables', 'Daily planning in Journal', '8 property types for metadata'],
+    workflow: ['Capture client requests in Inbox', 'Plan deliverables in Kanban', 'Track time in Journal', 'Organize with metadata properties']
+  },
+  {
+    id: 'adhd',
+    icon: Brain,
+    title: 'ADHD Brains',
+    painQuote: 'Thoughts vanish before I can organize them.',
+    description: 'Capture first, organize later. The Inbox holds your thoughts so your brain doesn\'t have to. Zero-friction quick capture means nothing slips through — and AI clustering helps you make sense of the chaos when you\'re ready.',
+    features: ['Zero-friction Inbox capture', 'AI clustering for brain dumps', 'Gentle daily Journal ritual', 'No forced organization'],
+    workflow: ['Brain-dump into Inbox', 'AI groups related thoughts', 'Process when you\'re ready', 'Build structure gradually']
+  },
+  {
+    id: 'writers',
+    icon: PenLine,
+    title: 'Writers',
+    painQuote: 'Ideas scatter across drafts and sticky notes.',
+    description: 'A distraction-free Markdown editor that connects your ideas. Wiki-links weave a web of research, characters, and plot threads. Backlinks reveal unexpected connections between drafts.',
+    features: ['Distraction-free Markdown editor', '[[Wiki links]] between drafts', 'Backlinks for research threads', 'Version history for every note'],
+    workflow: ['Capture sparks in Inbox', 'Draft in focused editor', 'Link research with wiki-links', 'Track revisions over time']
+  },
+  {
+    id: 'founders',
+    icon: Rocket,
+    title: 'Founders',
+    painQuote: 'Strategy docs, tasks, and reflections live in 10 different tabs.',
+    description: 'Run your company from one encrypted workspace. Strategy docs link to action items, OKRs live next to daily standups, and everything stays private — even from us.',
+    features: ['All-in-one workspace', 'End-to-end encryption', 'Kanban for sprint planning', 'Journal for founder reflections'],
+    workflow: ['Plan strategy in Notes', 'Break into Tasks with Kanban', 'Journal daily reflections', 'Review progress in Calendar']
   },
   {
     id: 'personal',
     icon: Sparkles,
     title: 'Personal Productivity',
     painQuote: 'Life admin is overwhelming and nothing has a home.',
-    features: ['Quick capture Inbox', 'Reflective daily Journal', 'Subtasks & recurring habits', 'Private & encrypted']
+    description: 'Give every thought, task, and plan a home. From grocery lists to long-term goals, from morning pages to habit tracking — all private, all yours, all in one place.',
+    features: ['Quick capture Inbox', 'Reflective daily Journal', 'Subtasks & recurring habits', 'Private & encrypted'],
+    workflow: ['Quick-capture throughout the day', 'Process in evening review', 'Track habits with recurring tasks', 'Reflect in morning Journal']
   }
 ] as const
+
 export const FLOW_STEPS = [
   {
     id: 'inbox',
