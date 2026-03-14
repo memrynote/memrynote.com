@@ -22,7 +22,7 @@ interface DemoSceneProps {
 export function DemoScene({ activeIndex, playing, onToggle, onDurationDetected }: DemoSceneProps) {
   return (
     <div
-      className="relative bg-neutral-950 rounded-b-xl overflow-hidden select-none aspect-video"
+      className="relative bg-paper-deep rounded-b-xl overflow-hidden select-none aspect-video"
       onClick={onToggle}
     >
       {CLIPS.map((clip, i) => {
