@@ -233,8 +233,9 @@ export const ROADMAP_DATA = {
         'Mobile app — iOS & Android (targeting late 2026)',
         'Graph view for note connections',
         'CLI, MCP & API',
+        'Google & Apple Calendar integration',
         'Multi-vault support',
-        'Import tools',
+        'Notion, Todoist & Readwise integration',
         'Templates marketplace'
       ]
     }
