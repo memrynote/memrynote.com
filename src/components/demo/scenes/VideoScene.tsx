@@ -8,7 +8,10 @@ interface VideoSceneProps extends SceneProps {
 export function VideoScene({ src, playing, onDurationDetected }: VideoSceneProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const playingRef = useRef(playing)
-  playingRef.current = playing
+
+  useEffect(() => {
+    playingRef.current = playing
+  }, [playing])
 
   useEffect(() => {
     const video = videoRef.current
