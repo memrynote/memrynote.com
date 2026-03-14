@@ -106,6 +106,13 @@ export const COMPARISON_DATA = {
       logseq: false
     },
     {
+      feature: 'Calendar sync',
+      memry: true,
+      notion: 'partial' as const,
+      obsidian: false,
+      logseq: false
+    },
+    {
       feature: 'All-in-one (no plugins needed)',
       memry: true,
       notion: true,
