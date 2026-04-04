@@ -1,7 +1,7 @@
 import { Inbox, BookOpen, FileText, CheckSquare, Calendar, FolderOpen, Lock, Zap, Briefcase, GraduationCap, Laptop, Sparkles, Brain, PenLine, Rocket } from 'lucide-react'
 
 export const GITHUB_URL = 'https://github.com/memrynote/memry'
-export const DISCORD_URL = 'https://discord.gg/memry'
+export const DISCORD_URL = 'https://discord.gg/h36c4zJGUC'
 export const TWITTER_DEV_URL = 'https://x.com/h4yfans'
 
 export const NAV_LINKS = [
@@ -16,6 +16,7 @@ export const FOOTER_LINKS = {
     { label: 'Security', href: '/security' }
   ],
   social: [
+    { label: 'Discord', href: 'https://discord.gg/h36c4zJGUC' },
     { label: 'Twitter', href: 'https://x.com/h4yfans' },
     { label: 'GitHub', href: 'https://github.com/memrynote/memry' }
   ]
