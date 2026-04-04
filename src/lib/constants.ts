@@ -2,6 +2,7 @@ import { Inbox, BookOpen, FileText, CheckSquare, Calendar, FolderOpen, Lock, Zap
 
 export const GITHUB_URL = 'https://github.com/memrynote/memry'
 export const DISCORD_URL = 'https://discord.gg/h36c4zJGUC'
+export const REDDIT_URL = 'https://www.reddit.com/r/MemryNote/'
 export const TWITTER_DEV_URL = 'https://x.com/h4yfans'
 
 export const NAV_LINKS = [
@@ -17,6 +18,7 @@ export const FOOTER_LINKS = {
   ],
   social: [
     { label: 'Discord', href: 'https://discord.gg/h36c4zJGUC' },
+    { label: 'Reddit', href: 'https://www.reddit.com/r/MemryNote/' },
     { label: 'Twitter', href: 'https://x.com/h4yfans' },
     { label: 'GitHub', href: 'https://github.com/memrynote/memry' }
   ]
