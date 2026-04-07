@@ -22,9 +22,9 @@ export const PAGE_META: Record<string, PageMeta> = {
     path: '/',
   },
   features: {
-    title: 'Features — Memry',
+    title: 'Every feature, so far — Memry',
     description:
-      'Inbox, notes, tasks & journal — four pillars of thought in one app. Wiki-links, Kanban, daily journal, AI clustering, all local-first.',
+      'A complete index of what Memry can do today. 94 features across tasks, projects, inbox, notes, journal, reminders, search, and AI — and growing every week.',
     path: '/features',
   },
 useCases: {
