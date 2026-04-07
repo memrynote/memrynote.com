@@ -13,8 +13,9 @@ Replace the current `/features` page with a docs-style two-column layout: a stic
 All feature copy comes from `/Users/h4yfans/sideproject/memry/FEATURES.md` in the sibling `memry` repo.
 
 - 9 sections: Tasks, Projects, Inbox, Notes, Journal, Reminders, Search, Navigation and UI, AI
-- ~91 features total (counts per section: Tasks 18, Projects 5, Inbox 13, Notes 24, Journal 9, Reminders 5, Search 5, Navigation & UI 9, AI 3)
+- 94 features total (counts per section: Tasks 20, Projects 5, Inbox 13, Notes 25, Journal 9, Reminders 5, Search 5, Navigation & UI 9, AI 3)
 - Each feature has a short title and a 1–3 sentence description
+- These counts are NOT hardcoded in the page — they're computed from the data at render time, so adding a feature to the data file automatically updates every count display
 
 The website does not consume the markdown file at runtime. The content is ported into a typed TypeScript data file inside the website repo (see "Data shape").
 
