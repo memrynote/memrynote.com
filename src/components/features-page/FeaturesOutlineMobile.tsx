@@ -95,6 +95,7 @@ export function FeaturesOutlineMobile() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            key="backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -106,6 +107,7 @@ export function FeaturesOutlineMobile() {
         )}
         {isOpen && (
           <motion.div
+            key="dialog"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
