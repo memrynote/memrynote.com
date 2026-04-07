@@ -65,7 +65,13 @@ export function FeaturesOutlineMobile() {
     const target = document.getElementById(id)
     if (!target) return
     suppressFor(SCROLLSPY_SUPPRESS_MS)
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    target.scrollIntoView({
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      block: 'start',
+    })
     if (typeof window !== 'undefined' && window.history) {
       window.history.replaceState(null, '', `#${id}`)
     }
