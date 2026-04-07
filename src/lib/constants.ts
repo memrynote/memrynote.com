@@ -5,6 +5,7 @@ export const REDDIT_URL = 'https://www.reddit.com/r/MemryNote/'
 export const TWITTER_DEV_URL = 'https://x.com/h4yfans'
 
 export const NAV_LINKS = [
+  { label: 'Features', href: '/features' },
   { label: 'Use Cases', href: '/use-cases' },
   { label: 'Roadmap', href: '#roadmap' },
   { label: 'Security', href: '/security' }
@@ -12,7 +13,7 @@ export const NAV_LINKS = [
 
 export const FOOTER_LINKS = {
   product: [
-    { label: 'Features', href: '#features' },
+    { label: 'Features', href: '/features' },
     { label: 'Security', href: '/security' }
   ],
   social: [
