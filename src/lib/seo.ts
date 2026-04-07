@@ -24,7 +24,7 @@ export const PAGE_META: Record<string, PageMeta> = {
   features: {
     title: 'Every feature, so far — Memry',
     description:
-      'A complete index of what Memry can do today. 94 features across tasks, projects, inbox, notes, journal, reminders, search, and AI — and growing every week.',
+      'A complete index of what Memry can do today. 94 features across tasks, projects, inbox, notes, journal, reminders, search, and AI — and growing weekly.',
     path: '/features',
   },
 useCases: {
