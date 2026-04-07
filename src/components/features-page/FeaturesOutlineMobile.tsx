@@ -10,6 +10,7 @@ const SCROLLSPY_SUPPRESS_MS = 600
 export function FeaturesOutlineMobile() {
   const [isOpen, setIsOpen] = useState(false)
   const pillRef = useRef<HTMLButtonElement>(null)
+  const dialogRef = useRef<HTMLDivElement>(null)
 
   const observedIds = useMemo(() => {
     const ids: string[] = []
@@ -39,14 +40,42 @@ export function FeaturesOutlineMobile() {
 
   useEffect(() => {
     if (!isOpen) return
+
+    const focusTimeout = window.setTimeout(() => {
+      dialogRef.current?.focus()
+    }, 50)
+
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setIsOpen(false)
         pillRef.current?.focus()
+        return
+      }
+
+      if (e.key === 'Tab' && dialogRef.current) {
+        const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], [tabindex]:not([tabindex="-1"])',
+        )
+        if (focusable.length === 0) return
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
+        const active = document.activeElement as HTMLElement | null
+
+        if (e.shiftKey && active === first) {
+          e.preventDefault()
+          last.focus()
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault()
+          first.focus()
+        }
       }
     }
+
     document.addEventListener('keydown', handleKey)
-    return () => document.removeEventListener('keydown', handleKey)
+    return () => {
+      window.clearTimeout(focusTimeout)
+      document.removeEventListener('keydown', handleKey)
+    }
   }, [isOpen])
 
   useEffect(() => {
@@ -114,12 +143,15 @@ export function FeaturesOutlineMobile() {
         {isOpen && (
           <motion.div
             key="dialog"
+            ref={dialogRef}
+            tabIndex={-1}
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
             role="dialog"
             aria-label="Features outline"
+            aria-modal={true}
             className="md:hidden fixed left-4 right-4 top-[124px] z-50 max-h-[70vh] overflow-y-auto rounded-2xl border border-border bg-card shadow-elevated"
           >
             <div className="p-4">
