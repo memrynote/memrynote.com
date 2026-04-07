@@ -11,9 +11,19 @@ interface UseScrollspyResult {
 
 const DEFAULT_ROOT_MARGIN = '-96px 0px -55% 0px'
 
+/**
+ * Tracks which element from a list of ids is currently in view.
+ *
+ * Uses IntersectionObserver. Callers should memoize the `ids` array
+ * to avoid recreating the observer on every render.
+ *
+ * Returns the active id (sticky — keeps the most recent active id when
+ * nothing is in view) and a `suppressFor` escape hatch that lets click
+ * handlers temporarily silence updates while smooth-scroll runs.
+ */
 export function useScrollspy(
   ids: string[],
-  options: UseScrollspyOptions = {},
+  { rootMargin = DEFAULT_ROOT_MARGIN }: UseScrollspyOptions = {},
 ): UseScrollspyResult {
   const [activeId, setActiveId] = useState<string | null>(null)
   const suppressedUntilRef = useRef<number>(0)
@@ -58,7 +68,7 @@ export function useScrollspy(
         }
       },
       {
-        rootMargin: options.rootMargin ?? DEFAULT_ROOT_MARGIN,
+        rootMargin,
         threshold: 0,
       },
     )
@@ -66,7 +76,7 @@ export function useScrollspy(
     elements.forEach((el) => observer.observe(el))
 
     return () => observer.disconnect()
-  }, [ids, options.rootMargin])
+  }, [ids, rootMargin])
 
   const suppressFor = (ms: number) => {
     suppressedUntilRef.current = Date.now() + ms
